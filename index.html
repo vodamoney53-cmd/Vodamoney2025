@@ -479,11 +479,11 @@
                 <h2 class="form-title">Entrar na Conta</h2>
                 <div class="form-group">
                     <label for="loginPhone">Número de Telefone</label>
-                    <input type="tel" id="loginPhone" class="form-control" placeholder="+(258)" value="+(258)">
+                    <input type="tel" id="loginPhone" class="form-control" placeholder="" value="">
                 </div>
                 <div class="form-group">
                     <label for="loginPin">PIN</label>
-                    <input type="password" id="loginPin" class="form-control" placeholder="****" value="4321" maxlength="4">
+                    <input type="password" id="loginPin" class="form-control" placeholder="" value="" maxlength="6">
                 </div>
                 <button class="btn btn-primary" id="loginBtn">Entrar</button>
                 <div class="form-switch">
@@ -502,15 +502,15 @@
                 </div>
                 <div class="form-group">
                     <label for="registerPhone">Número de Telefone</label>
-                    <input type="tel" id="registerPhone" class="form-control" placeholder="+(258)">
+                    <input type="tel" id="registerPhone" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="registerPin">Criar PIN (4 dígitos)</label>
-                    <input type="password" id="registerPin" class="form-control" placeholder="****" maxlength="4">
+                    <input type="password" id="registerPin" class="form-control" placeholder="" maxlength="">
                 </div>
                 <div class="form-group">
                     <label for="registerPinConfirm">Confirmar PIN</label>
-                    <input type="password" id="registerPinConfirm" class="form-control" placeholder="****" maxlength="4">
+                    <input type="password" id="registerPinConfirm" class="form-control" placeholder="" maxlength="6">
                 </div>
                 <button class="btn btn-primary" id="registerBtn">Registar</button>
                 <div class="form-switch">
@@ -572,7 +572,7 @@
                     
                     <div class="form-group">
                         <label for="withdrawPin">Confirme o seu PIN</label>
-                        <input type="password" id="withdrawPin" class="form-control" placeholder="****" maxlength="4">
+                        <input type="password" id="withdrawPin" class="form-control" placeholder="" maxlength="6">
                     </div>
                     
                     <div class="controls">
@@ -634,12 +634,11 @@
 </div>
         </div>
 <div class="warning">
-<h3>atendimento ao cliente</h3>
-<p>vodamoney53@gmail.com</p>
-
-            </div>
+<h3>Atendimento ao Cliente</h3>
+<p>E-mail:vodamoney53@gmail.com</p>
+</div>
         </div>
-        
+           
         <footer>
             <p>Vodamoney; 2025 - todos direitos reservados </p>
         </footer>
@@ -793,14 +792,14 @@
                     name: name,
                     phone: phone,
                     pin: pin,
-                    balance: 25, // Saldo inicial
+                    balance: 15, // Saldo inicial
                     invested: 0
                 };
                 
                 appData.users.push(newUser);
                 appData.currentUser = newUser;
                 
-                alert('Conta criada com sucesso! Você recebeu 25 MZN de bónus de boas-vindas.');
+                alert('Conta criada com sucesso! Você recebeu 15 MZN de bónus de boas-vindas.');
                 showDashboard();
             });
             
