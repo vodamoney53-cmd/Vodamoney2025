@@ -3,991 +3,905 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VodaMoney</title>
+    <title>VodaMoney - Ganhos Horários</title>
     <style>
-        :root {
-            --vodacom-red: #e60000;
-            --vodacom-dark: #cc0000;
-            --vodacom-light: #ff3333;
-            --dark-color: #333;
-            --light-color: #f5f5f5;
-            --success-color: #2e7d32;
-            --warning-color: #ff9800;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
-        
+
+        :root {
+            --primary: #DC3545;
+            --secondary: #C82333;
+            --accent: #FF6B7A;
+            --success: #28A745;
+            --warning: #FFC107;
+            --dark: #343A40;
+            --light: #F8F9FA;
+            --gray: #6C757D;
+        }
+
         body {
-            background-color: #f0f0f0;
-            color: #333;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #8B0000 0%, #DC3545 100%);
+            min-height: 100vh;
+            color: var(--dark);
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        
-        header {
-            background: linear-gradient(135deg, var(--vodacom-red), var(--vodacom-dark));
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            border-radius: 10px 10px 0 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
+
+        /* Header Styles */
+        .header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
-        
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
         }
-        
-        .logo-circle {
-            width: 50px;
-            height: 50px;
-            background-color: white;
-            border-radius: 50%;
+
+        .nav-links {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
+            gap: 2rem;
+            list-style: none;
         }
-        
-        .logo-text {
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: white;
+            margin-top: 80px;
+            border-radius: 15px;
+            padding: 4rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        /* Hourly Earnings Banner */
+        .hourly-banner {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+            animation: pulse 2s infinite;
+            border: 3px solid gold;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .hourly-banner h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hourly-banner .amount {
             font-size: 2rem;
             font-weight: bold;
+            color: gold;
         }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
+
+        /* Auth Forms */
         .auth-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .auth-form {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
             max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
-        
-        .form-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--vodacom-red);
-            text-align: center;
-        }
-        
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
         }
-        
+
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
         }
-        
-        .form-control {
+
+        .form-group input,
+        .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s;
         }
-        
-        .form-control:focus {
-            border-color: var(--vodacom-red);
+
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
+            border-color: var(--primary);
         }
-        
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        
-        .btn-primary {
-            background-color: var(--vodacom-red);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--vodacom-dark);
-        }
-        
-        .btn-secondary {
-            background-color: #e0e0e0;
-            color: #333;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #d0d0d0;
-        }
-        
-        .btn-success {
-            background-color: var(--success-color);
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background-color: #1b5e20;
-        }
-        
+
         .form-switch {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 1rem;
         }
-        
+
         .form-switch a {
-            color: var(--vodacom-red);
+            color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
         }
-        
-        .form-switch a:hover {
-            text-decoration: underline;
-        }
-        
+
+        /* Dashboard */
         .dashboard {
-            background-color: white;
-            border-radius: 0 0 10px 10px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
             display: none;
+            margin-top: 100px;
         }
-        
-        .user-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .user-welcome {
-            font-size: 1.2rem;
-        }
-        
-        .user-balance {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--vodacom-red);
-        }
-        
-        .card {
-            background-color: var(--light-color);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-        
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--vodacom-dark);
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-title i {
-            margin-right: 10px;
-        }
-        
-        .investment-display {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .amount {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--vodacom-red);
-        }
-        
-        .profit {
-            font-size: 1.5rem;
-            color: var(--success-color);
-            font-weight: bold;
-        }
-        
-        .loss {
-            font-size: 1.5rem;
-            color: #f44336;
-            font-weight: bold;
-        }
-        
-        .timer-container {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--vodacom-dark);
+
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        
-        .timer {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .timer-label {
-            font-size: 1.2rem;
+
+        .balance-card h3 {
+            margin-bottom: 1rem;
             opacity: 0.9;
         }
-        
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .btn-inline {
-            flex: 1;
-        }
-        
-        .withdraw-form {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-        
-        .withdraw-title {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--vodacom-dark);
-        }
-        
-        .amount-input {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .currency {
-            background-color: #eee;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-right: none;
-            border-radius: 5px 0 0 5px;
+
+        .amount {
+            font-size: 3rem;
             font-weight: bold;
+            margin-bottom: 1rem;
         }
-        
-        .amount-input .form-control {
-            border-radius: 0 5px 5px 0;
-        }
-        
-        .quick-amounts {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .quick-amount {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .quick-amount:hover {
-            background-color: #e0e0e0;
-        }
-        
-        .investment-options {
+
+        .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
         }
-        
-        .option-card {
-            background-color: white;
+
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
             border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
         }
-        
-        .option-card:hover {
-            border-color: var(--vodacom-red);
+
+        /* Hourly Timer */
+        .hourly-timer {
+            background: var(--dark);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1rem 0;
+            border: 2px solid gold;
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: gold;
+            margin: 0.5rem 0;
+        }
+
+        /* Investments Grid */
+        .investments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .investment-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .investment-card:hover {
             transform: translateY(-5px);
         }
-        
-        .option-card.selected {
-            border-color: var(--vodacom-red);
-            background-color: rgba(230, 0, 0, 0.05);
+
+        .investment-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
-        
-        .option-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--vodacom-dark);
-        }
-        
-        .option-return {
-            font-size: 1.5rem;
+
+        .hourly-rate {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             font-weight: bold;
-            color: var(--success-color);
-            margin-bottom: 10px;
+            display: inline-block;
+            margin-bottom: 1rem;
         }
-        
-        .option-risk {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 15px;
+
+        .return {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
         }
-        
-        .history {
-            margin-top: 30px;
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
         }
-        
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
+
+        .progress {
+            background: var(--success);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s;
         }
-        
-        .history-table th, .history-table td {
-            padding: 12px 15px;
-            text-align: left;
+
+        /* Activity Feed */
+        .activity-feed {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
             border-bottom: 1px solid #e0e0e0;
         }
-        
-        .history-table th {
-            background-color: var(--light-color);
-            color: var(--vodacom-dark);
+
+        .activity-item:last-child {
+            border-bottom: none;
         }
-        
-        .positive {
-            color: var(--success-color);
+
+        .hourly-earning {
+            color: var(--primary);
+            font-weight: bold;
         }
-        
-        .negative {
-            color: #f44336;
+
+        /* Legal Warnings */
+        .legal-warnings {
+            background: var(--warning);
+            color: var(--dark);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
         }
-        
-        .warning {
-            background-color: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-            text-align: center;
+
+        .legal-warnings ul {
+            list-style: none;
+            padding: 0;
         }
-        
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #666;
-            font-size: 0.9rem;
+
+        .legal-warnings li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .logout-btn {
-            background-color: transparent;
-            border: 1px solid var(--vodacom-red);
-            color: var(--vodacom-red);
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .logout-btn:hover {
-            background-color: var(--vodacom-red);
-            color: white;
-        }
-        
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .investment-display {
-                flex-direction: column;
-                text-align: center;
+            .nav-links {
+                display: none;
             }
-            
-            .controls {
-                flex-direction: column;
-            }
-            
-            .timer {
+
+            .hero h1 {
                 font-size: 2rem;
             }
-            
-            .user-info {
-                flex-direction: column;
-                align-items: flex-start;
+
+            .stats {
+                grid-template-columns: 1fr;
             }
-            
-            .user-balance {
-                margin-top: 10px;
+
+            .investments-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <div class="logo-circle">
-                    <span style="color: var(--vodacom-red); font-weight: bold;">V</span>
-                </div>
-                <div class="logo-text">VodaMoney</div>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo"> VodaMoney</div>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#investimentos">Investimentos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contactos">Contactos</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" onclick="showLogin()">Login</button>
+                <button class="btn btn-primary" onclick="showRegister()">Registar</button>
             </div>
-            <div class="subtitle">A melhor Plataforma de investimento</div>
-        </header>
-        
-        <!-- Formulário de Login -->
-        <div class="auth-container" id="loginContainer">
-            <div class="auth-form">
-                <h2 class="form-title">Entrar na Conta</h2>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="container">
+        <div class="hero" id="home">
+            <h1> Ganhe Dinheiro a Cada Hora!</h1>
+            <p>Plataforma com retornos horários em tempo real - Invista e veja seu dinheiro crescer!</p>
+            
+            <!-- Hourly Earnings Banner -->
+            <div class="hourly-banner">
+                <h3> Próximo Ganho em:</h3>
+                <div class="timer-display" id="nextEarningTimer">59:45</div>
+                <div class="amount">+2.5% a cada hora</div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="showRegister()">Começar a Ganhar Agora</button>
+        </div>
+    </section>
+
+    <!-- Login Form -->
+    <div class="auth-container" id="loginContainer">
+        <div class="auth-form">
+            <h2>Login na Plataforma</h2>
+            <form id="loginForm">
                 <div class="form-group">
-                    <label for="loginPhone">Número de Telefone</label>
-                    <input type="tel" id="loginPhone" class="form-control" placeholder="" value="">
+                    <label>Email ou Telefone</label>
+                    <input type="text" placeholder="seu@gmail.com ou +258..." required>
                 </div>
                 <div class="form-group">
-                    <label for="loginPin">PIN</label>
-                    <input type="password" id="loginPin" class="form-control" placeholder="" value="" maxlength="6">
+                    <label>Senha</label>
+                    <input type="password" placeholder="Sua senha" required>
                 </div>
-                <button class="btn btn-primary" id="loginBtn">Entrar</button>
-                <div class="form-switch">
-                    Não tem conta? <a href="#" id="showRegister">Registe-se aqui</a>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
+            </form>
+            <div class="form-switch">
+                Não tem conta? <a href="#" onclick="showRegister()">Registe-se aqui</a>
+            </div>
+            <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;" onclick="hideAuth()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Register Form -->
+    <div class="auth-container" id="registerContainer">
+        <div class="auth-form">
+            <h2>Criar Conta</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" placeholder="Seu nome completo" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="seu@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <input type="tel" placeholder="+258 8X XXX XXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" placeholder="Mínimo 8 caracteres" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Senha</label>
+                    <input type="password" placeholder="Confirme sua senha" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Documento</label>
+                    <select required>
+                        <option value="">Seleccionar...</option>
+                        <option value="bi">Bilhete de Identidade</option>
+                        <option value="passport">Passaporte</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Criar Conta</button>
+            </form>
+            <div class="form-switch">
+                Já tem conta? <a href="#" onclick="showLogin()">Faça login aqui</a>
+            </div>
+            <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;" onclick="hideAuth()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Dashboard (hidden by default) -->
+    <div class="container dashboard" id="dashboard">
+        <!-- Hourly Timer -->
+        <div class="hourly-timer">
+            <h3>⏰ PRÓXIMO GANHO AUTOMÁTICO</h3>
+            <div class="timer-display" id="dashboardTimer">59:45</div>
+            <p>Seu investimento renderá automaticamente a cada hora!</p>
+        </div>
+
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <h3>Saldo Total</h3>
+            <div class="amount" id="totalBalance">0,00 MZN</div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div>Investido</div>
+                    <div id="investedAmount">0,00 MZN</div>
+                </div>
+                <div class="stat-item">
+                    <div>Ganhos Hoje</div>
+                    <div id="todayEarnings" style="color: gold;">0,00 MZN</div>
+                </div>
+                <div class="stat-item">
+                    <div>Próximo Ganho</div>
+                    <div id="nextEarning" style="color: gold;">~0,00 MZN</div>
                 </div>
             </div>
         </div>
-        
-        <!-- Formulário de Registo -->
-        <div class="auth-container" id="registerContainer" style="display: none;">
-            <div class="auth-form">
-                <h2 class="form-title">Criar Nova Conta</h2>
-                <div class="form-group">
-                    <label for="registerName">Nome Completo</label>
-                    <input type="text" id="registerName" class="form-control" placeholder="Seu nome completo">
+
+        <!-- Investments Grid -->
+        <div class="investments-grid">
+            <div class="investment-card">
+                <h4> Plano RÁPIDO</h4>
+                <div class="hourly-rate">+2.5% por hora</div>
+                <div class="return" id="fastReturn">+0.0% esta hora</div>
+                <div>Investimento mínimo: 500 MZN</div>
+                <div>Retorno horário garantido</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 75%"></div>
                 </div>
-                <div class="form-group">
-                    <label for="registerPhone">Número de Telefone</label>
-                    <input type="tel" id="registerPhone" class="form-control" placeholder="">
+                <button class="btn btn-primary" onclick="invest('fast')">Investir Agora</button>
+            </div>
+
+            <div class="investment-card">
+                <h4> Plano TURBO</h4>
+                <div class="hourly-rate">+3.8% por hora</div>
+                <div class="return" id="turboReturn">+0.0% esta hora</div>
+                <div>Investimento mínimo: 1000 MZN</div>
+                <div>Retorno horário premium</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 60%"></div>
                 </div>
-                <div class="form-group">
-                    <label for="registerPin">Criar PIN (4 dígitos)</label>
-                    <input type="password" id="registerPin" class="form-control" placeholder="" maxlength="">
+                <button class="btn btn-primary" onclick="invest('turbo')">Investir Agora</button>
+            </div>
+
+            <div class="investment-card">
+                <h4> Plano VIP</h4>
+                <div class="hourly-rate">+5.2% por hora</div>
+                <div class="return" id="vipReturn">+0.0% esta hora</div>
+                <div>Investimento mínimo: 2000 MZN</div>
+                <div>Retorno horário máximo</div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 45%"></div>
                 </div>
-                <div class="form-group">
-                    <label for="registerPinConfirm">Confirmar PIN</label>
-                    <input type="password" id="registerPinConfirm" class="form-control" placeholder="" maxlength="6">
-                </div>
-                <button class="btn btn-primary" id="registerBtn">Registar</button>
-                <div class="form-switch">
-                    Já tem conta? <a href="#" id="showLogin">Faça login aqui</a>
+                <button class="btn btn-primary" onclick="invest('vip')">Investir Agora</button>
+            </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="activity-feed">
+            <h4> Ganhos Horários Recentes</h4>
+            <div id="activityList">
+                <div class="activity-item">
+                    <span>✅ Conta criada com sucesso</span>
+                    <small>Hoje</small>
                 </div>
             </div>
         </div>
-        
-        <!-- Dashboard Principal -->
-        <div class="dashboard" id="dashboard">
-            <div class="user-info">
-                <div>
-                    <div class="user-welcome">Bem-vindo, <span id="userName">Usuário</span></div>
-                    <div>Número: <span id="userPhone">+(258)</span></div>
-                </div>
-                <div>
-                    <div class="user-balance">Saldo: <span id="userBalance">2.450,00</span> MZN</div>
-                    <button class="logout-btn" id="logoutBtn">Sair</button>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-title">
-                    <i></i> Seu Investimento
-                </div>
-                <div class="investment-display">
-                    <div>
-                        <div>Valor Investido</div>
-                        <div class="amount" id="investedAmount">1.500,00 MZN</div>
-                    </div>
-                    <div>
-                        <div>Retorno Atual</div>
-                        <div class="profit" id="currentReturn">+ 100,00 MZN</div>
-                    </div>
-                </div>
-                
-                <div class="controls">
-                    <button class="btn btn-primary btn-inline" id="investBtn">Investir</button>
-                    <button class="btn btn-success btn-inline" id="withdrawBtn">Levantar</button>
-                </div>
-                
-                <!-- Formulário de Levantamento -->
-                <div class="withdraw-form" id="withdrawForm">
-                    <h3 class="withdraw-title">Levantar Dinheiro</h3>
-                    <div class="form-group">
-                        <label for="withdrawAmount">Valor a Levantar (MZN)</label>
-                        <div class="amount-input">
-                            <span class="currency">MZN</span>
-                            <input type="number" id="withdrawAmount" class="form-control" placeholder="0,00" min="250" max="2450">
-                        </div>
-                    </div>
-                    
-                    <div class="quick-amounts">
-                        <div class="quick-amount" data-amount="100">100 MZN</div>
-                        <div class="quick-amount" data-amount="500">500 MZN</div>
-                        <div class="quick-amount" data-amount="1000">1000 MZN</div>
-                        <div class="quick-amount" data-amount="2000">2000 MZN</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="withdrawPin">Confirme o seu PIN</label>
-                        <input type="password" id="withdrawPin" class="form-control" placeholder="" maxlength="6">
-                    </div>
-                    
-                    <div class="controls">
-                        <button class="btn btn-secondary btn-inline" id="cancelWithdraw">Cancelar</button>
-                        <button class="btn btn-success btn-inline" id="confirmWithdraw">Confirmar Levantamento</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="timer-container">
-                <div class="timer-label">Próximo Rendimento em</div>
-                <div class="timer" id="countdown">00:45:22</div>
-                <div class="timer-label">Valor estimado: <span id="nextReturnAmount">+1,00 MZN</span></div>
-            </div>
-            
-            <div class="card">
-                <div class="card-title">
-                    <i></i> Opções de Investimento
-                </div>
-                <div class="investment-options" id="investmentOptions">
-                    <!-- As opções serão preenchidas via JavaScript -->
-                </div>
-            </div>
-            
-            <div class="card history">
-                <div class="card-title">
-                    <i></i> Histórico Recente
-                </div>
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th>Data/Hora</th>
-                          
-                            <th>Valor (MZN)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="historyBody">
-                        <tr>
-                            
-                            <td>Saldo Adicionado</td>
-                            <td class="positive">+20,00</td>
-                        </tr>
-                        <tr>
-                            
-                            <td>Rendimento</td>
-                            <td class="positive">+100,00</td>
-                        </tr>
-                        <tr>
-                           
-                          
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="warning">
- <strong><h3>Pagamento Paga fácil</h3> </strong><h3>Código: 1198697</h3>
-<p>Nome: Waite-Venda Online</p>
-</div>
+
+        <!-- Legal Warnings -->
+        <div class="legal-warnings">
+            <h3>Pagamento Paga Fácil </h3>
+            <ul>
+                <li> Código: 1198697</li>
+                <li>Nome: Waite- Venda Online</li>
+                <li> Seu capital está protegido até 50,000 MZN</li>
+                <li> Suporte E-mail: vodamoney53@gmail.com</li>
+            </ul>
         </div>
-<div class="warning">
-<h3>Atendimento ao Cliente</h3>
-<p>E-mail:vodamoney53@gmail.com</p>
-</div>
-        </div>
-           
-        <footer>
-            <p>Vodamoney; 2025 - todos direitos reservados </p>
-        </footer>
     </div>
 
     <script>
-        // Dados da aplicação
-        let appData = {
-            currentUser: null,
-            users: [
-                { phone: "+(258)", pin: "4321", name: "", balance: 20, invested: 5 }
-            ],
-            investmentData: {
-                invested: 100.00,
-                currentReturn: 10.00,
-                selectedOption: null,
-                timer: null,
-                countdown: 45 * 60 + 22, // 4 km5 minutos e 22 segundos
-                nextReturnAmount: 1.00,
-                history: []
-            },
-            investmentOptions: [
-                { id: 1, name: "Plano Básico", returnRate: 0.08, risk: "Baixo", minAmount: 100 },
-                { id: 2, name: "Plano Moderado", returnRate: 0.12, risk: "Médio", minAmount: 500 },
-                { id: 3, name: "Plano Avançado", returnRate: 0.18, risk: "Alto", minAmount: 1000 }
-            ]
+        // Dados do usuário
+        let userData = {
+            isLoggedIn: false,
+            balance: 0,
+            invested: 0,
+            profits: 0,
+            todayEarnings: 0,
+            investments: [],
+            activities: ['✅ Conta criada com sucesso'],
+            lastEarningTime: Date.now()
         };
 
-        // Elementos DOM
-        const loginContainer = document.getElementById('loginContainer');
-        const registerContainer = document.getElementById('registerContainer');
-        const dashboard = document.getElementById('dashboard');
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        const showRegister = document.getElementById('showRegister');
-        const showLogin = document.getElementById('showLogin');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const userName = document.getElementById('userName');
-        const userPhone = document.getElementById('userPhone');
-        const userBalance = document.getElementById('userBalance');
-        const investedAmount = document.getElementById('investedAmount');
-        const currentReturn = document.getElementById('currentReturn');
-        const countdown = document.getElementById('countdown');
-        const nextReturnAmount = document.getElementById('nextReturnAmount');
-        const investmentOptionsEl = document.getElementById('investmentOptions');
-        const investBtn = document.getElementById('investBtn');
-        const withdrawBtn = document.getElementById('withdrawBtn');
-        const withdrawForm = document.getElementById('withdrawForm');
-        const withdrawAmount = document.getElementById('withdrawAmount');
-        const withdrawPin = document.getElementById('withdrawPin');
-        const cancelWithdraw = document.getElementById('cancelWithdraw');
-        const confirmWithdraw = document.getElementById('confirmWithdraw');
-        const quickAmounts = document.querySelectorAll('.quick-amount');
-        const historyBody = document.getElementById('historyBody');
+        // Planos de investimento com ganhos horários
+        const investmentPlans = {
+            fast: {
+                name: "Plano RÁPIDO",
+                minAmount: 500,
+                hourlyRate: 0.025, // 2.5% por hora
+                color: "#DC3545"
+            },
+            turbo: {
+                name: "Plano TURBO", 
+                minAmount: 1000,
+                hourlyRate: 0.038, // 3.8% por hora
+                color: "#C82333"
+            },
+            vip: {
+                name: "Plano VIP",
+                minAmount: 2000,
+                hourlyRate: 0.052, // 5.2% por hora
+                color: "#8B0000"
+            }
+        };
 
-        // Inicialização
-        function init() {
-            renderInvestmentOptions();
-            setupEventListeners();
-            startCountdown();
+        // Timer para ganhos horários
+        let timeUntilNextEarning = 60 * 60; // 1 hora em segundos
+
+        // Sistema de autenticação
+        function showLogin() {
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('registerContainer').style.display = 'none';
         }
 
-        // Renderizar opções de investimento
-        function renderInvestmentOptions() {
-            investmentOptionsEl.innerHTML = '';
-            
-            appData.investmentOptions.forEach(option => {
-                const optionCard = document.createElement('div');
-                optionCard.className = 'option-card';
-                if (appData.investmentData.selectedOption && appData.investmentData.selectedOption.id === option.id) {
-                    optionCard.classList.add('selected');
-                }
-                
-                optionCard.innerHTML = `
-                    <div class="option-title">${option.name}</div>
-                    <div class="option-return">+${(option.returnRate * 100).toFixed(1)}%</div>
-                    <div class="option-risk">Risco: ${option.risk}</div>
-                    <div class="option-risk">Mínimo: ${option.minAmount} MZN</div>
-                    <button class="btn btn-secondary select-option" data-id="${option.id}">Selecionar</button>
-                `;
-                
-                investmentOptionsEl.appendChild(optionCard);
-            });
+        function showRegister() {
+            document.getElementById('registerContainer').style.display = 'flex';
+            document.getElementById('loginContainer').style.display = 'none';
         }
 
-        // Configurar event listeners
-        function setupEventListeners() {
-            // Navegação entre login e registo
-            showRegister.addEventListener('click', function(e) {
-                e.preventDefault();
-                loginContainer.style.display = 'none';
-                registerContainer.style.display = 'flex';
-            });
-            
-            showLogin.addEventListener('click', function(e) {
-                e.preventDefault();
-                registerContainer.style.display = 'none';
-                loginContainer.style.display = 'flex';
-            });
-            
-            // Botão de login
-            loginBtn.addEventListener('click', function() {
-                const phone = document.getElementById('loginPhone').value;
-                const pin = document.getElementById('loginPin').value;
-                
-                if (!phone || !pin) {
-                    alert('Por favor, preencha todos os campos.');
-                    return;
-                }
-                
-                const user = appData.users.find(u => u.phone === phone && u.pin === pin);
-                
-                if (user) {
-                    appData.currentUser = user;
-                    showDashboard();
-                } else {
-                    alert('Número de telefone ou PIN incorretos.');
-                }
-            });
-            
-            // Botão de registo
-            registerBtn.addEventListener('click', function() {
-                const name = document.getElementById('registerName').value;
-                const phone = document.getElementById('registerPhone').value;
-                const pin = document.getElementById('registerPin').value;
-                const pinConfirm = document.getElementById('registerPinConfirm').value;
-                
-                if (!name || !phone || !pin || !pinConfirm) {
-                    alert('Por favor, preencha todos os campos.');
-                    return;
-                }
-                
-                if (pin !== pinConfirm) {
-                    alert('Os PINs não coincidem.');
-                    return;
-                }
-                
-                if (pin.length !== 4) {
-                    alert('O PIN deve ter exatamente 4 dígitos.');
-                    return;
-                }
-                
-                // Verificar se o usuário já existe
-                if (appData.users.find(u => u.phone === phone)) {
-                    alert('Já existe uma conta com este número de telefone.');
-                    return;
-                }
-                
-                // Criar novo usuário
-                const newUser = {
-                    name: name,
-                    phone: phone,
-                    pin: pin,
-                    balance: 15, // Saldo inicial
-                    invested: 0
-                };
-                
-                appData.users.push(newUser);
-                appData.currentUser = newUser;
-                
-                alert('Conta criada com sucesso! Você recebeu 15 MZN de bónus de boas-vindas.');
-                showDashboard();
-            });
-            
-            // Botão de logout
-            logoutBtn.addEventListener('click', function() {
-                appData.currentUser = null;
-                loginContainer.style.display = 'flex';
-                registerContainer.style.display = 'none';
-                dashboard.style.display = 'none';
-            });
-            
-            // Selecionar opção de investimento
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('select-option')) {
-                    const optionId = parseInt(e.target.getAttribute('data-id'));
-                    const selectedOption = appData.investmentOptions.find(opt => opt.id === optionId);
-                    
-                    if (selectedOption) {
-                        appData.investmentData.selectedOption = selectedOption;
-                        renderInvestmentOptions();
-                    }
-                }
-            });
-            
-            // Botão de investir
-            investBtn.addEventListener('click', function() {
-                if (!appData.investmentData.selectedOption) {
-                    alert('Por favor, selecione uma opção de investimento primeiro.');
-                    return;
-                }
-                
-                const minAmount = appData.investmentData.selectedOption.minAmount;
-                const amount = prompt(`Quanto deseja investir no ${appData.investmentData.selectedOption.name}? (Mínimo: ${minAmount} MZN)`);
-                
-                if (!amount) return;
-                
-                const investment = parseFloat(amount);
-                
-                if (isNaN(investment) || investment < minAmount) {
-                    alert(`Valor inválido. O investimento mínimo é ${minAmount} MZN.`);
-                    return;
-                }
-                
-                if (investment > appData.currentUser.balance) {
-                    alert('Saldo insuficiente para este investimento.');
-                    return;
-                }
-                
-                // Processar investimento
-                appData.currentUser.balance -= investment;
-                appData.currentUser.invested += investment;
-                appData.investmentData.invested += investment;
-                
-                // Adicionar ao histórico
-                addToHistory(`Investimento - ${appData.investmentData.selectedOption.name}`, -investment);
-                
-                updateUserDisplay();
-                alert(`Investimento de ${investment.toFixed(2)} MZN realizado com sucesso!`);
-            });
-            
-            // Botão de levantar
-            withdrawBtn.addEventListener('click', function() {
-                withdrawForm.style.display = 'block';
-            });
-            
-            // Cancelar levantamento
-            cancelWithdraw.addEventListener('click', function() {
-                withdrawForm.style.display = 'none';
-                withdrawAmount.value = '';
-                withdrawPin.value = '';
-            });
-            
-            // Valores rápidos para levantamento
-            quickAmounts.forEach(quickAmount => {
-                quickAmount.addEventListener('click', function() {
-                    const amount = this.getAttribute('data-amount');
-                    withdrawAmount.value = amount;
-                });
-            });
-            
-            // Confirmar levantamento
-            confirmWithdraw.addEventListener('click', function() {
-                const amount = parseFloat(withdrawAmount.value);
-                const pin = withdrawPin.value;
-                
-                if (!amount || amount <= 0) {
-                    alert('Por favor, insira um valor válido para levantamento.');
-                    return;
-                }
-                
-                if (amount > appData.currentUser.balance) {
-                    alert('Saldo insuficiente para este levantamento.');
-                    return;
-                }
-                
-                if (pin !== appData.currentUser.pin) {
-                    alert('PIN incorreto. Tente novamente.');
-                    return;
-                }
-                
-                // Processar levantamento
-                appData.currentUser.balance -= amount;
-                
-                // Adicionar ao histórico
-                addToHistory('Levantamento', -amount);
-                
-                updateUserDisplay();
-                withdrawForm.style.display = 'none';
-                withdrawAmount.value = '';
-                withdrawPin.value = '';
-                
-                alert(`Levantamento de ${amount.toFixed(2)} MZN realizado com sucesso!`);
-            });
+        function hideAuth() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registerContainer').style.display = 'none';
         }
 
-        // Mostrar dashboard
         function showDashboard() {
-            loginContainer.style.display = 'none';
-            registerContainer.style.display = 'none';
-            dashboard.style.display = 'block';
-            
-            updateUserDisplay();
+            document.querySelector('.hero').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            updateDashboard();
+            startHourlyTimer();
         }
 
-        // Atualizar display do usuário
-        function updateUserDisplay() {
-            if (!appData.currentUser) return;
+        // Registro de usuário
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            userName.textContent = appData.currentUser.name;
-            userPhone.textContent = appData.currentUser.phone;
-            userBalance.textContent = appData.currentUser.balance.toFixed(2);
-            investedAmount.textContent = `${appData.investmentData.invested.toFixed(2)} MZN`;
-            currentReturn.textContent = `+ ${appData.investmentData.currentReturn.toFixed(2)} MZN`;
+            // Simular registro bem-sucedido
+            userData.isLoggedIn = true;
+            userData.balance = 2000; // Bónus de boas-vindas
+            userData.activities.push(' Bónus de boas-vindas: 2,000 MZN');
+            
+            hideAuth();
+            showDashboard();
+            addActivity(' Registro completado com sucesso');
+        });
+
+        // Login de usuário
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simular login bem-sucedido
+            userData.isLoggedIn = true;
+            
+            hideAuth();
+            showDashboard();
+            addActivity(' Login realizado com sucesso');
+        });
+
+        // Atualizar dashboard
+        function updateDashboard() {
+            const totalBalance = userData.balance + userData.invested + userData.profits;
+            
+            document.getElementById('totalBalance').textContent = formatCurrency(totalBalance);
+            document.getElementById('investedAmount').textContent = formatCurrency(userData.invested);
+            document.getElementById('todayEarnings').textContent = formatCurrency(userData.todayEarnings);
+            
+            // Calcular próximo ganho estimado
+            const nextEarning = calculateNextEarning();
+            document.getElementById('nextEarning').textContent = formatCurrency(nextEarning);
+            
+            // Atualizar retornos dos planos
+            document.getElementById('fastReturn').textContent = `+${(investmentPlans.fast.hourlyRate * 100).toFixed(1)}% esta hora`;
+            document.getElementById('turboReturn').textContent = `+${(investmentPlans.turbo.hourlyRate * 100).toFixed(1)}% esta hora`;
+            document.getElementById('vipReturn').textContent = `+${(investmentPlans.vip.hourlyRate * 100).toFixed(1)}% esta hora`;
+            
+            updateActivityList();
         }
 
-        // Iniciar contador
-        function startCountdown() {
-            setInterval(() => {
-                appData.investmentData.countdown--;
+        // Calcular próximo ganho
+        function calculateNextEarning() {
+            let totalHourlyEarnings = 0;
+            userData.investments.forEach(investment => {
+                const plan = investmentPlans[investment.plan];
+                totalHourlyEarnings += investment.amount * plan.hourlyRate;
+            });
+            return totalHourlyEarnings;
+        }
+
+        // Sistema de investimento
+        function invest(planType) {
+            const plan = investmentPlans[planType];
+            const amount = prompt(`Quanto deseja investir no ${plan.name}? (Mínimo: ${formatCurrency(plan.minAmount)})`);
+            
+            if (!amount) return;
+            
+            const investmentAmount = parseFloat(amount);
+            
+            if (investmentAmount < plan.minAmount) {
+                alert(`O investimento mínimo é ${formatCurrency(plan.minAmount)}`);
+                return;
+            }
+            
+            if (investmentAmount > userData.balance) {
+                alert('Saldo insuficiente para este investimento');
+                return;
+            }
+            
+            // Processar investimento
+            userData.balance -= investmentAmount;
+            userData.invested += investmentAmount;
+            
+            const investment = {
+                plan: planType,
+                amount: investmentAmount,
+                date: new Date(),
+                returns: 0,
+                totalEarned: 0
+            };
+            
+            userData.investments.push(investment);
+            addActivity(` Investimento de ${formatCurrency(investmentAmount)} no ${plan.name}`);
+            
+            updateDashboard();
+        }
+
+        // Processar ganhos horários
+        function processHourlyEarnings() {
+            if (userData.investments.length === 0) return;
+            
+            let totalEarned = 0;
+            
+            userData.investments.forEach(investment => {
+                const plan = investmentPlans[investment.plan];
+                const hourlyEarning = investment.amount * plan.hourlyRate;
                 
-                if (appData.investmentData.countdown <= 0) {
-                    appData.investmentData.countdown = 60 * 60; // Reiniciar para 1 hora
-                    
-                    // Simular rendimento
-                    if (appData.investmentData.selectedOption && appData.investmentData.invested > 0) {
-                        const returnAmount = appData.investmentData.invested * (appData.investmentData.selectedOption.returnRate / 24); // Rendimento horário
-                        appData.investmentData.currentReturn += returnAmount;
-                        appData.investmentData.nextReturnAmount = (appData.investmentData.invested * (appData.investmentData.selectedOption.returnRate / 24)).toFixed(2);
-                        
-                        // Adicionar ao histórico
-                        addToHistory('Rendimento', returnAmount);
-                        
-                        updateUserDisplay();
-                    }
+                investment.returns += hourlyEarning;
+                investment.totalEarned += hourlyEarning;
+                userData.profits += hourlyEarning;
+                userData.todayEarnings += hourlyEarning;
+                totalEarned += hourlyEarning;
+            });
+            
+            if (totalEarned > 0) {
+                addActivity(` Ganho horário: +${formatCurrency(totalEarned)}`, true);
+                userData.balance += totalEarned; // Adicionar ao saldo disponível
+                
+                // Efeito visual
+                flashEarningNotification(totalEarned);
+            }
+            
+            updateDashboard();
+        }
+
+        // Efeito de notificação de ganho
+        function flashEarningNotification(amount) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--primary);
+                color: white;
+                padding: 2rem;
+                border-radius: 15px;
+                font-size: 2rem;
+                font-weight: bold;
+                z-index: 3000;
+                animation: fadeInOut 3s ease-in-out;
+                border: 3px solid gold;
+                text-align: center;
+            `;
+            
+            notification.innerHTML = `
+                <div> GANHO HORÁRIO!</div>
+                <div style="color: gold; font-size: 2.5rem;">+${formatCurrency(amount)}</div>
+                <div style="font-size: 1rem;">Adicionado à sua conta</div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+
+        // Adicionar atividade
+        function addActivity(activity, isEarning = false) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-MZ', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const activityText = isEarning ? 
+                `<span class="hourly-earning">${activity}</span>` : 
+                activity;
+                
+            userData.activities.unshift(`${activityText} - ${timeString}`);
+            
+            // Manter apenas últimas 10 atividades
+            if (userData.activities.length > 10) {
+                userData.activities.pop();
+            }
+            
+            updateActivityList();
+        }
+
+        // Atualizar lista de atividades
+        function updateActivityList() {
+            const activityList = document.getElementById('activityList');
+            activityList.innerHTML = '';
+            
+            userData.activities.forEach(activity => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                activityItem.innerHTML = activity;
+                activityList.appendChild(activityItem);
+            });
+        }
+
+        // Timer para ganhos horários
+        function startHourlyTimer() {
+            updateTimers();
+            
+            setInterval(() => {
+                timeUntilNextEarning--;
+                
+                if (timeUntilNextEarning <= 0) {
+                    timeUntilNextEarning = 60 * 60; // Reset para 1 hora
+                    processHourlyEarnings();
                 }
                 
-                // Atualizar display do contador
-                const hours = Math.floor(appData.investmentData.countdown / 3600);
-                const minutes = Math.floor((appData.investmentData.countdown % 3600) / 60);
-                const seconds = appData.investmentData.countdown % 60;
-                
-                countdown.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                nextReturnAmount.textContent = `+${appData.investmentData.nextReturnAmount} MZN`;
+                updateTimers();
             }, 1000);
         }
 
-        // Adicionar transação ao histórico
-        function addToHistory(description, amount) {
-            const now = new Date();
-            const dateStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+        function updateTimers() {
+            const minutes = Math.floor(timeUntilNextEarning / 60);
+            const seconds = timeUntilNextEarning % 60;
+            const timerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${dateStr}</td>
-                <td>${description}</td>
-                <td class="${amount >= 0 ? 'positive' : 'negative'}">${amount >= 0 ? '+' : ''}${amount.toFixed(2)}</td>
-            `;
-            
-            historyBody.insertBefore(newRow, historyBody.firstChild);
-            
-            // Manter apenas os últimos 10 registros
-            if (historyBody.children.length > 10) {
-                historyBody.removeChild(historyBody.lastChild);
-            }
+            document.getElementById('nextEarningTimer').textContent = timerText;
+            document.getElementById('dashboardTimer').textContent = timerText;
         }
 
-        // Inicializar a aplicação
-        init();
+        // Formatador de moeda
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('pt-MZ', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount) + ' MZN';
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esconder forms de auth e dashboard inicialmente
+            hideAuth();
+            
+            // Adicionar estilo de animação
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeInOut {
+                    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                    20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                    40% { transform: translate(-50%, -50%) scale(1); }
+                    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
     </script>
 </body>
 </html>
