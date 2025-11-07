@@ -3,905 +3,1441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VodaMoney - Ganhos Horários</title>
+    <title>VodaMoney - Ganhos Diários</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            --primary: #DC3545;
-            --secondary: #C82333;
-            --accent: #FF6B7A;
-            --success: #28A745;
-            --warning: #FFC107;
-            --dark: #343A40;
-            --light: #F8F9FA;
-            --gray: #6C757D;
-        }
-
+        
         body {
-            background: linear-gradient(135deg, #8B0000 0%, #DC3545 100%);
+            background: linear-gradient(135deg, #8B0000, #B22222, #000080, #1E90FF);
+            color: white;
             min-height: 100vh;
-            color: var(--dark);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
         }
-
-        /* Header Styles */
-        .header {
-            background: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
+        
+        .container {
             width: 100%;
-            top: 0;
-            z-index: 1000;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
         }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
+        
+        h1 {
             text-align: center;
+            margin-bottom: 20px;
+            color: #FFD700;
         }
-
-        .btn-primary {
-            background: var(--primary);
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo h2 {
+            font-size: 28px;
+            background: linear-gradient(90deg, #FF6B6B, #1E90FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        label {
+            font-weight: 600;
+        }
+        
+        input, select {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
+            font-size: 16px;
         }
-
-        .btn-primary:hover {
-            background: var(--secondary);
+        
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        button {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
             transform: translateY(-2px);
         }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
+        
+        .primary-btn {
+            background: linear-gradient(90deg, #FF6B6B, #1E90FF);
             color: white;
         }
-
-        /* Hero Section */
-        .hero {
-            background: white;
-            margin-top: 80px;
-            border-radius: 15px;
-            padding: 4rem 2rem;
+        
+        .secondary-btn {
+            background: #1E90FF;
+            color: white;
+        }
+        
+        .danger-btn {
+            background: #8B0000;
+            color: white;
+        }
+        
+        .disabled-btn {
+            background: #666;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .disabled-btn:hover {
+            transform: none;
+        }
+        
+        .switch-form {
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 15px;
         }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
+        
+        .switch-form a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
         }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
+        
+        .dashboard {
+            display: none;
         }
-
-        /* Hourly Earnings Banner */
-        .hourly-banner {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1.5rem;
+        
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .balance {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #FF6B6B, #1E90FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .counter-container {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            margin: 2rem 0;
+            padding: 20px;
             text-align: center;
-            animation: pulse 2s infinite;
-            border: 3px solid gold;
+            margin: 20px 0;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+        
+        .counter {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #FF6B6B, #1E90FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
         }
-
-        .hourly-banner h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+        
+        .counter-label {
+            font-size: 14px;
+            opacity: 0.8;
         }
-
-        .hourly-banner .amount {
-            font-size: 2rem;
-            font-weight: bold;
-            color: gold;
+        
+        .earnings {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
         }
-
-        /* Auth Forms */
-        .auth-container {
+        
+        .earnings-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+        }
+        
+        .earnings-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E90FF;
+            margin-top: 5px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-buttons button {
+            flex: 1;
+        }
+        
+        .message {
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .success {
+            background: rgba(30, 144, 255, 0.3);
+        }
+        
+        .error {
+            background: rgba(255, 50, 50, 0.3);
+        }
+        
+        .info {
+            background: rgba(255, 215, 0, 0.3);
+        }
+        
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
             justify-content: center;
             align-items: center;
         }
-
-        .auth-form {
-            background: white;
-            padding: 2rem;
+        
+        .modal-content {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
             border-radius: 15px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .form-switch {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .form-switch a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* Dashboard */
-        .dashboard {
-            display: none;
-            margin-top: 100px;
-        }
-
-        .balance-card {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .balance-card h3 {
-            margin-bottom: 1rem;
-            opacity: 0.9;
-        }
-
-        .amount {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .stat-item {
-            background: rgba(255,255,255,0.2);
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        /* Hourly Timer */
-        .hourly-timer {
-            background: var(--dark);
-            color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            margin: 1rem 0;
-            border: 2px solid gold;
-        }
-
-        .timer-display {
-            font-size: 2rem;
-            font-weight: bold;
-            color: gold;
-            margin: 0.5rem 0;
-        }
-
-        /* Investments Grid */
-        .investments-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .investment-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 4px solid var(--primary);
-            transition: transform 0.3s;
-        }
-
-        .investment-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .investment-card h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .hourly-rate {
-            background: var(--primary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .return {
-            color: var(--success);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .progress-bar {
-            background: #e0e0e0;
-            border-radius: 10px;
-            height: 10px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-
-        .progress {
-            background: var(--success);
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.3s;
-        }
-
-        /* Activity Feed */
-        .activity-feed {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .activity-item {
+        
+        .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
         }
-
-        .activity-item:last-child {
-            border-bottom: none;
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
         }
-
-        .hourly-earning {
-            color: var(--primary);
+        
+        .paga-facil-logo {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #FF6B6B, #1E90FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .transaction-history {
+            margin-top: 20px;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .transaction-type {
             font-weight: bold;
         }
-
-        /* Legal Warnings */
-        .legal-warnings {
-            background: var(--warning);
-            color: var(--dark);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 2rem 0;
-            border-left: 4px solid var(--primary);
+        
+        .deposit {
+            color: #1E90FF;
         }
-
-        .legal-warnings ul {
-            list-style: none;
-            padding: 0;
+        
+        .withdrawal {
+            color: #FF6B6B;
         }
-
-        .legal-warnings li {
-            padding: 0.5rem 0;
+        
+        .earning {
+            color: #FFD700;
+        }
+        
+        .transfer {
+            color: #FFA726;
+        }
+        
+        .transfer-form {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            flex-direction: column;
+            gap: 15px;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .investments-grid {
-                grid-template-columns: 1fr;
-            }
+        
+        .transfer-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .transfer-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        
+        .confirmation-step {
+            display: none;
+        }
+        
+        .confirmation-details {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .welcome-bonus {
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid #FF6B6B;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .bonus-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1E90FF;
+            margin: 10px 0;
+        }
+        
+        .daily-invest-notice {
+            background: rgba(30, 144, 255, 0.2);
+            border: 2px solid #1E90FF;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .timer-progress {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .timer-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B6B, #1E90FF);
+            border-radius: 4px;
+            transition: width 1s linear;
+        }
+        
+        .investment-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+        }
+        
+        .stat-box {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .countdown-pulse {
+            animation: pulse 1s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        
+        .time-remaining {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #FFD700;
+        }
+        
+        .quick-earnings-badge {
+            background: linear-gradient(90deg, #FF6B6B, #1E90FF);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .daily-limit-notice {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .next-investment {
+            background: rgba(255, 107, 107, 0.2);
+            border: 2px solid #FF6B6B;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .color-scheme {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            margin: 0 5px;
+            border-radius: 50%;
+        }
+        
+        .red-box {
+            background: #FF6B6B;
+        }
+        
+        .blue-box {
+            background: #1E90FF;
+        }
+        
+        .gold-box {
+            background: #FFD700;
+        }
+        
+        .dual-theme-notice {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="logo"> VodaMoney</div>
-            <ul class="nav-links">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#investimentos">Investimentos</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contactos">Contactos</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <button class="btn btn-outline" onclick="showLogin()">Login</button>
-                <button class="btn btn-primary" onclick="showRegister()">Registar</button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="container">
-        <div class="hero" id="home">
-            <h1> Ganhe Dinheiro a Cada Hora!</h1>
-            <p>Plataforma com retornos horários em tempo real - Invista e veja seu dinheiro crescer!</p>
-            
-            <!-- Hourly Earnings Banner -->
-            <div class="hourly-banner">
-                <h3> Próximo Ganho em:</h3>
-                <div class="timer-display" id="nextEarningTimer">59:45</div>
-                <div class="amount">+2.5% a cada hora</div>
-            </div>
-            
-            <button class="btn btn-primary" onclick="showRegister()">Começar a Ganhar Agora</button>
+    <div class="logo">
+        <h2>VodaMoney</h2>
+        <p>Ganho Diário - 5 minutos por dia!</p>
+        <div class="dual-theme-notice">
+             Investimento seguro e flexível
         </div>
-    </section>
-
-    <!-- Login Form -->
-    <div class="auth-container" id="loginContainer">
-        <div class="auth-form">
-            <h2>Login na Plataforma</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Email ou Telefone</label>
-                    <input type="text" placeholder="seu@gmail.com ou +258..." required>
-                </div>
-                <div class="form-group">
-                    <label>Senha</label>
-                    <input type="password" placeholder="Sua senha" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
-            </form>
-            <div class="form-switch">
-                Não tem conta? <a href="#" onclick="showRegister()">Registe-se aqui</a>
-            </div>
-            <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;" onclick="hideAuth()">Cancelar</button>
+        <div class="color-scheme">
+            <div class="color-box red-box"></div>
+            <div class="color-box blue-box"></div>
+            <div class="color-box gold-box"></div>
         </div>
     </div>
-
-    <!-- Register Form -->
-    <div class="auth-container" id="registerContainer">
-        <div class="auth-form">
-            <h2>Criar Conta</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label>Nome Completo</label>
-                    <input type="text" placeholder="Seu nome completo" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" placeholder="seu@gmail.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Telefone</label>
-                    <input type="tel" placeholder="+258 8X XXX XXXX" required>
-                </div>
-                <div class="form-group">
-                    <label>Senha</label>
-                    <input type="password" placeholder="Mínimo 8 caracteres" required minlength="8">
-                </div>
-                <div class="form-group">
-                    <label>Confirmar Senha</label>
-                    <input type="password" placeholder="Confirme sua senha" required>
-                </div>
-                <div class="form-group">
-                    <label>Tipo de Documento</label>
-                    <select required>
-                        <option value="">Seleccionar...</option>
-                        <option value="bi">Bilhete de Identidade</option>
-                        <option value="passport">Passaporte</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Criar Conta</button>
-            </form>
-            <div class="form-switch">
-                Já tem conta? <a href="#" onclick="showLogin()">Faça login aqui</a>
+    
+    <div class="container">
+        <!-- Formulário de Login -->
+        <div id="login-form" class="form-container">
+            <h1>Login</h1>
+            <div class="form-group">
+                <label for="login-phone">Número de Telefone</label>
+                <input type="tel" id="login-phone" placeholder="+(258)" pattern="[0-9]{9}">
             </div>
-            <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;" onclick="hideAuth()">Cancelar</button>
+            <div class="form-group">
+                <label for="login-pin">PIN (4 dígitos)</label>
+                <input type="password" id="login-pin" placeholder="****" maxlength="4" pattern="[0-9]{4}">
+            </div>
+            <button id="login-btn" class="primary-btn">Entrar</button>
+            <div class="switch-form">
+                Não tem conta? <a href="#" id="show-register">Registrar</a>
+            </div>
+            <div id="login-message" class="message"></div>
         </div>
-    </div>
-
-    <!-- Dashboard (hidden by default) -->
-    <div class="container dashboard" id="dashboard">
-        <!-- Hourly Timer -->
-        <div class="hourly-timer">
-            <h3>⏰ PRÓXIMO GANHO AUTOMÁTICO</h3>
-            <div class="timer-display" id="dashboardTimer">59:45</div>
-            <p>Seu investimento renderá automaticamente a cada hora!</p>
+        
+        <!-- Formulário de Registro -->
+        <div id="register-form" class="form-container" style="display: none;">
+            <h1>Registro MZN</h1>
+            <div class="welcome-bonus">
+                <h3> Bónus de Boas-Vindas! </h3>
+                <p>Registe-se agora e receba</p>
+                <div class="bonus-amount">100 MZN</div>
+                <p>para começar a investir</p>
+            </div>
+            <div class="daily-invest-notice">
+                <h3> Investimento Diário</h3>
+                <p>Ganhe retornos em apenas <strong>5 minutos</strong>!</p>
+                <p style="font-size: 14px; margin-top: 10px;">Apenas 1 investimento permitido por dia</p>
+            </div>
+            <div class="form-group">
+                <label for="register-name">Nome Completo</label>
+                <input type="text" id="register-name" placeholder="Seu nome completo">
+            </div>
+            <div class="form-group">
+                <label for="register-phone">Número de Telefone</label>
+                <input type="tel" id="register-phone" placeholder="+(258)" pattern="[0-9]{9}">
+            </div>
+            <div class="form-group">
+                <label for="register-pin">PIN (4 dígitos)</label>
+                <input type="password" id="register-pin" placeholder="Crie um PIN de 4 dígitos" maxlength="4" pattern="[0-9]{4}">
+            </div>
+            <div class="form-group">
+                <label for="register-confirm-pin">Confirmar PIN</label>
+                <input type="password" id="register-confirm-pin" placeholder="Confirme seu PIN" maxlength="4" pattern="[0-9]{4}">
+            </div>
+            <button id="register-btn" class="primary-btn">Criar Conta com Bónus</button>
+            <div class="switch-form">
+                Já tem conta? <a href="#" id="show-login">Login</a>
+            </div>
+            <div id="register-message" class="message"></div>
         </div>
-
-        <!-- Balance Card -->
-        <div class="balance-card">
-            <h3>Saldo Total</h3>
-            <div class="amount" id="totalBalance">0,00 MZN</div>
-            <div class="stats">
-                <div class="stat-item">
-                    <div>Investido</div>
-                    <div id="investedAmount">0,00 MZN</div>
+        
+        <!-- Dashboard após login -->
+        <div id="dashboard" class="dashboard">
+            <div class="user-info">
+                <div>Bem-vindo, <span id="user-name">Usuário</span></div>
+                <div id="user-phone">+(258)</div>
+            </div>
+            
+            <div class="balance">
+                Saldo: <span id="user-balance">0</span> MZN
+            </div>
+            
+            <div class="counter-container">
+                <div class="counter-label">Contador de Investimento Diário</div>
+                <div class="counter countdown-pulse" id="counter">05:00</div>
+                <div class="time-remaining" id="time-remaining">Tempo restante: 5 minutos</div>
+                <div class="timer-progress">
+                    <div class="timer-progress-bar" id="timer-progress-bar" style="width: 0%"></div>
                 </div>
-                <div class="stat-item">
+                <div class="counter-label">Complete apenas <strong>5 minutos</strong> para receber seu retorno diário</div>
+                
+                <div id="next-investment-info" class="next-investment">
+                    <!-- Informações sobre o próximo investimento serão exibidas aqui -->
+                </div>
+                
+                <div class="investment-stats">
+                    <div class="stat-box">
+                        <div class="stat-value" id="investments-completed">0</div>
+                        <div class="stat-label">Investimentos</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="avg-earnings">0 MZN</div>
+                        <div class="stat-label">Média/Ganho</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="total-time">0min</div>
+                        <div class="stat-label">Tempo Total</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="earnings">
+                <div class="earnings-box">
                     <div>Ganhos Hoje</div>
-                    <div id="todayEarnings" style="color: gold;">0,00 MZN</div>
+                    <div class="earnings-value" id="today-earnings">0 MZN</div>
                 </div>
-                <div class="stat-item">
-                    <div>Próximo Ganho</div>
-                    <div id="nextEarning" style="color: gold;">~0,00 MZN</div>
+                <div class="earnings-box">
+                    <div>Ganhos Totais</div>
+                    <div class="earnings-value" id="total-earnings">0 MZN</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="transfer-btn" class="secondary-btn">Transferir</button>
+                <button id="start-counter" class="primary-btn">Iniciar Contador <span class="quick-earnings-badge">5min</span></button>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="withdraw-btn" class="secondary-btn">Levantar</button>
+                <button id="history-btn" class="secondary-btn">Histórico</button>
+                <button id="logout-btn" class="danger-btn">Sair</button>
+            </div>
+            
+            <div id="dashboard-message" class="message"></div>
+            
+            <div class="transaction-history" id="transaction-history">
+                <h3>Últimas Transações</h3>
+                <div id="transactions-list">
+                    <!-- As transações serão adicionadas aqui dinamicamente -->
                 </div>
             </div>
         </div>
-
-        <!-- Investments Grid -->
-        <div class="investments-grid">
-            <div class="investment-card">
-                <h4> Plano RÁPIDO</h4>
-                <div class="hourly-rate">+2.5% por hora</div>
-                <div class="return" id="fastReturn">+0.0% esta hora</div>
-                <div>Investimento mínimo: 500 MZN</div>
-                <div>Retorno horário garantido</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 75%"></div>
-                </div>
-                <button class="btn btn-primary" onclick="invest('fast')">Investir Agora</button>
+    </div>
+    
+    <!-- Modal de Pagamento Paga Fácil -->
+    <div id="transfer-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Pagamento Paga Fácil</h2>
+                <button class="close-modal">&times;</button>
             </div>
-
-            <div class="investment-card">
-                <h4> Plano TURBO</h4>
-                <div class="hourly-rate">+3.8% por hora</div>
-                <div class="return" id="turboReturn">+0.0% esta hora</div>
-                <div>Investimento mínimo: 1000 MZN</div>
-                <div>Retorno horário premium</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 60%"></div>
+            
+            <div class="paga-facil-logo">PAGA FÁCIL</div>
+            
+            <div id="transfer-form-step1" class="transfer-form">
+                <div class="form-group">
+                    <label for="recipient-phone">Código</label>
+                    <input type="tel" id="recipient-phone" placeholder="1198697" pattern="[0-9]{9}">
                 </div>
-                <button class="btn btn-primary" onclick="invest('turbo')">Investir Agora</button>
+                
+                <div class="form-group">
+                    <label for="transfer-amount">Nome</label>
+                    <input type="number" id="transfer-amount" placeholder="Waite-Venda Online" min="500" max="5000">
+                </div>
+                
+                <div class="transfer-info">
+                    <h4>Atendimento ao Cliente:</h4>
+                    <div class="transfer-details">
+                        <span>vodamoney53@gmail.com</span>
+                        <span id="service-fee"></span>
+                    </div>
+                    <div class="transfer-details">
+                        <span></span>
+                        <span id="total-debit"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="transfer-reference">Investimento</label>
+                    <input type="text" id="transfer-reference" placeholder="650MZN ou 1200MZN">
+                </div>
+                
+                <button id="next-to-confirm" class="primary-btn"></button>
+                <div id="transfer-message" class="message"></div>
             </div>
-
-            <div class="investment-card">
-                <h4> Plano VIP</h4>
-                <div class="hourly-rate">+5.2% por hora</div>
-                <div class="return" id="vipReturn">+0.0% esta hora</div>
-                <div>Investimento mínimo: 2000 MZN</div>
-                <div>Retorno horário máximo</div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 45%"></div>
+            
+            <div id="transfer-form-step2" class="transfer-form confirmation-step">
+                <h3>Confirmar Transferência</h3>
+                
+                <div class="confirmation-details">
+                    <div class="transfer-details">
+                        <span>Destinatário:</span>
+                        <span id="confirm-recipient">+(258)</span>
+                    </div>
+                    <div class="transfer-details">
+                        <span>Valor:</span>
+                        <span id="confirm-amount">0 MZN</span>
+                    </div>
+                    <div class="transfer-details">
+                        <span>Taxa de serviço:</span>
+                        <span id="confirm-fee">1.50 MZN</span>
+                    </div>
+                    <div class="transfer-details">
+                        <span>Total:</span>
+                        <span id="confirm-total">0 MZN</span>
+                    </div>
+                    <div class="transfer-details">
+                        <span>Referência:</span>
+                        <span id="confirm-reference">-</span>
+                    </div>
                 </div>
-                <button class="btn btn-primary" onclick="invest('vip')">Investir Agora</button>
+                
+                <div class="form-group">
+                    <label for="transfer-pin">Confirme seu PIN</label>
+                    <input type="password" id="transfer-pin" placeholder="****" maxlength="4" pattern="[0-9]{4}">
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="back-to-transfer" class="secondary-btn">Voltar</button>
+                    <button id="confirm-transfer" class="primary-btn">Confirmar Transferência</button>
+                </div>
+                <div id="confirm-transfer-message" class="message"></div>
             </div>
         </div>
-
-        <!-- Activity Feed -->
-        <div class="activity-feed">
-            <h4> Ganhos Horários Recentes</h4>
-            <div id="activityList">
-                <div class="activity-item">
-                    <span>✅ Conta criada com sucesso</span>
-                    <small>Hoje</small>
-                </div>
+    </div>
+    
+    <!-- Modal de Levantamento -->
+    <div id="withdraw-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Levantamento via Paga Fácil</h2>
+                <button class="close-modal">&times;</button>
             </div>
+            <div class="paga-facil-logo">PAGA FÁCIL</div>
+            <div class="form-group">
+                <label for="withdraw-amount">Valor (MZN)</label>
+                <input type="number" id="withdraw-amount" placeholder="" min="350">
+            </div>
+            <div class="form-group">
+                <label for="withdraw-phone">Número para receber</label>
+                <input type="tel" id="withdraw-phone" placeholder="+(258)" pattern="[0-9]{9}">
+            </div>
+            <button id="confirm-withdraw" class="primary-btn">Confirmar Levantamento</button>
+            <div id="withdraw-message" class="message"></div>
         </div>
-
-        <!-- Legal Warnings -->
-        <div class="legal-warnings">
-            <h3>Pagamento Paga Fácil </h3>
-            <ul>
-                <li> Código: 1198697</li>
-                <li>Nome: Waite- Venda Online</li>
-                <li> Seu capital está protegido até 50,000 MZN</li>
-                <li> Suporte E-mail: vodamoney53@gmail.com</li>
-            </ul>
+    </div>
+    
+    <!-- Modal de Histórico -->
+    <div id="history-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Histórico de Transações</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="history-list">
+                <!-- O histórico completo será adicionado aqui -->
+            </div>
         </div>
     </div>
 
     <script>
-        // Dados do usuário
-        let userData = {
-            isLoggedIn: false,
-            balance: 0,
-            invested: 0,
-            profits: 0,
-            todayEarnings: 0,
-            investments: [],
-            activities: ['✅ Conta criada com sucesso'],
-            lastEarningTime: Date.now()
-        };
-
-        // Planos de investimento com ganhos horários
-        const investmentPlans = {
-            fast: {
-                name: "Plano RÁPIDO",
-                minAmount: 500,
-                hourlyRate: 0.025, // 2.5% por hora
-                color: "#DC3545"
-            },
-            turbo: {
-                name: "Plano TURBO", 
-                minAmount: 1000,
-                hourlyRate: 0.038, // 3.8% por hora
-                color: "#C82333"
-            },
-            vip: {
-                name: "Plano VIP",
-                minAmount: 2000,
-                hourlyRate: 0.052, // 5.2% por hora
-                color: "#8B0000"
-            }
-        };
-
-        // Timer para ganhos horários
-        let timeUntilNextEarning = 60 * 60; // 1 hora em segundos
-
-        // Sistema de autenticação
-        function showLogin() {
-            document.getElementById('loginContainer').style.display = 'flex';
-            document.getElementById('registerContainer').style.display = 'none';
-        }
-
-        function showRegister() {
-            document.getElementById('registerContainer').style.display = 'flex';
-            document.getElementById('loginContainer').style.display = 'none';
-        }
-
-        function hideAuth() {
-            document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('registerContainer').style.display = 'none';
-        }
-
-        function showDashboard() {
-            document.querySelector('.hero').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-            updateDashboard();
-            startHourlyTimer();
-        }
-
-        // Registro de usuário
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        // Elementos do DOM
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const dashboard = document.getElementById('dashboard');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const startCounterBtn = document.getElementById('start-counter');
+        const transferBtn = document.getElementById('transfer-btn');
+        const withdrawBtn = document.getElementById('withdraw-btn');
+        const historyBtn = document.getElementById('history-btn');
+        const counterDisplay = document.getElementById('counter');
+        const userBalance = document.getElementById('user-balance');
+        const todayEarnings = document.getElementById('today-earnings');
+        const totalEarnings = document.getElementById('total-earnings');
+        const userName = document.getElementById('user-name');
+        const userPhone = document.getElementById('user-phone');
+        const timerProgressBar = document.getElementById('timer-progress-bar');
+        const investmentsCompleted = document.getElementById('investments-completed');
+        const avgEarnings = document.getElementById('avg-earnings');
+        const totalTime = document.getElementById('total-time');
+        const timeRemaining = document.getElementById('time-remaining');
+        const nextInvestmentInfo = document.getElementById('next-investment-info');
+        
+        // Modais
+        const transferModal = document.getElementById('transfer-modal');
+        const withdrawModal = document.getElementById('withdraw-modal');
+        const historyModal = document.getElementById('history-modal');
+        const closeModals = document.querySelectorAll('.close-modal');
+        
+        // Elementos do formulário de transferência
+        const transferStep1 = document.getElementById('transfer-form-step1');
+        const transferStep2 = document.getElementById('transfer-form-step2');
+        const nextToConfirmBtn = document.getElementById('next-to-confirm');
+        const backToTransferBtn = document.getElementById('back-to-transfer');
+        const confirmTransferBtn = document.getElementById('confirm-transfer');
+        
+        // Mensagens
+        const loginMessage = document.getElementById('login-message');
+        const registerMessage = document.getElementById('register-message');
+        const dashboardMessage = document.getElementById('dashboard-message');
+        const transferMessage = document.getElementById('transfer-message');
+        const confirmTransferMessage = document.getElementById('confirm-transfer-message');
+        const withdrawMessage = document.getElementById('withdraw-message');
+        
+        // Variáveis de estado
+        let isCounterRunning = false;
+        let counterTime = 5 * 60; // 5 minutos em segundos
+        let counterInterval;
+        let userData = null;
+        let transferData = {};
+        
+        // Mostrar formulário de registro
+        showRegister.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Simular registro bem-sucedido
-            userData.isLoggedIn = true;
-            userData.balance = 50; // Bónus de boas-vindas
-            userData.activities.push(' Bónus de boas-vindas: 2,000 MZN');
-            
-            hideAuth();
-            showDashboard();
-            addActivity(' Registro completado com sucesso');
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'flex';
         });
-
-        // Login de usuário
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        
+        // Mostrar formulário de login
+        showLogin.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Simular login bem-sucedido
-            userData.isLoggedIn = true;
-            
-            hideAuth();
-            showDashboard();
-            addActivity(' Login realizado com sucesso');
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'flex';
         });
-
-        // Atualizar dashboard
-        function updateDashboard() {
-            const totalBalance = userData.balance + userData.invested + userData.profits;
+        
+        // Processar registro
+        registerBtn.addEventListener('click', () => {
+            const name = document.getElementById('register-name').value;
+            const phone = document.getElementById('register-phone').value;
+            const pin = document.getElementById('register-pin').value;
+            const confirmPin = document.getElementById('register-confirm-pin').value;
             
-            document.getElementById('totalBalance').textContent = formatCurrency(totalBalance);
-            document.getElementById('investedAmount').textContent = formatCurrency(userData.invested);
-            document.getElementById('todayEarnings').textContent = formatCurrency(userData.todayEarnings);
-            
-            // Calcular próximo ganho estimado
-            const nextEarning = calculateNextEarning();
-            document.getElementById('nextEarning').textContent = formatCurrency(nextEarning);
-            
-            // Atualizar retornos dos planos
-            document.getElementById('fastReturn').textContent = `+${(investmentPlans.fast.hourlyRate * 100).toFixed(1)}% esta hora`;
-            document.getElementById('turboReturn').textContent = `+${(investmentPlans.turbo.hourlyRate * 100).toFixed(1)}% esta hora`;
-            document.getElementById('vipReturn').textContent = `+${(investmentPlans.vip.hourlyRate * 100).toFixed(1)}% esta hora`;
-            
-            updateActivityList();
-        }
-
-        // Calcular próximo ganho
-        function calculateNextEarning() {
-            let totalHourlyEarnings = 0;
-            userData.investments.forEach(investment => {
-                const plan = investmentPlans[investment.plan];
-                totalHourlyEarnings += investment.amount * plan.hourlyRate;
-            });
-            return totalHourlyEarnings;
-        }
-
-        // Sistema de investimento
-        function invest(planType) {
-            const plan = investmentPlans[planType];
-            const amount = prompt(`Quanto deseja investir no ${plan.name}? (Mínimo: ${formatCurrency(plan.minAmount)})`);
-            
-            if (!amount) return;
-            
-            const investmentAmount = parseFloat(amount);
-            
-            if (investmentAmount < plan.minAmount) {
-                alert(`O investimento mínimo é ${formatCurrency(plan.minAmount)}`);
+            if (!name || !phone || !pin || !confirmPin) {
+                showMessage(registerMessage, 'Por favor, preencha todos os campos.', 'error');
                 return;
             }
             
-            if (investmentAmount > userData.balance) {
-                alert('Saldo insuficiente para este investimento');
+            if (phone.length !== 9) {
+                showMessage(registerMessage, 'Número de telefone deve ter 9 dígitos.', 'error');
                 return;
             }
             
-            // Processar investimento
-            userData.balance -= investmentAmount;
-            userData.invested += investmentAmount;
+            if (pin.length !== 4) {
+                showMessage(registerMessage, 'PIN deve ter 4 dígitos.', 'error');
+                return;
+            }
             
-            const investment = {
-                plan: planType,
-                amount: investmentAmount,
-                date: new Date(),
-                returns: 0,
-                totalEarned: 0
+            if (pin !== confirmPin) {
+                showMessage(registerMessage, 'Os PINs não coincidem.', 'error');
+                return;
+            }
+            
+            // Verificar se o número já está registrado
+            const existingUser = localStorage.getItem(`mznUser_${phone}`);
+            if (existingUser) {
+                showMessage(registerMessage, 'Este número já está registrado.', 'error');
+                return;
+            }
+            
+            // Simular registro bem-sucedido com bónus
+            userData = {
+                name: name,
+                phone: phone,
+                pin: pin,
+                balance: 100, // Bónus de 100 MZN
+                todayEarnings: 0,
+                totalEarnings: 0,
+                investmentsCompleted: 0,
+                totalInvestmentTime: 0,
+                lastInvestmentDate: null,
+                transactions: [{
+                    type: 'bonus',
+                    amount: 100,
+                    date: new Date().toLocaleString('pt-MZ'),
+                    method: 'Bónus de Registo',
+                    reference: 'Bónus de Boas-Vindas'
+                }]
             };
             
-            userData.investments.push(investment);
-            addActivity(` Investimento de ${formatCurrency(investmentAmount)} no ${plan.name}`);
+            // Salvar no localStorage
+            localStorage.setItem(`mznUser_${phone}`, JSON.stringify(userData));
             
-            updateDashboard();
-        }
-
-        // Processar ganhos horários
-        function processHourlyEarnings() {
-            if (userData.investments.length === 0) return;
+            showMessage(registerMessage, 'Conta criada com sucesso! Recebeu 100 MZN de bónus. Faça login.', 'success');
             
-            let totalEarned = 0;
+            // Limpar formulário
+            document.getElementById('register-name').value = '';
+            document.getElementById('register-phone').value = '';
+            document.getElementById('register-pin').value = '';
+            document.getElementById('register-confirm-pin').value = '';
             
-            userData.investments.forEach(investment => {
-                const plan = investmentPlans[investment.plan];
-                const hourlyEarning = investment.amount * plan.hourlyRate;
-                
-                investment.returns += hourlyEarning;
-                investment.totalEarned += hourlyEarning;
-                userData.profits += hourlyEarning;
-                userData.todayEarnings += hourlyEarning;
-                totalEarned += hourlyEarning;
-            });
+            // Mostrar formulário de login
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'flex';
+        });
+        
+        // Processar login
+        loginBtn.addEventListener('click', () => {
+            const phone = document.getElementById('login-phone').value;
+            const pin = document.getElementById('login-pin').value;
             
-            if (totalEarned > 0) {
-                addActivity(` Ganho horário: +${formatCurrency(totalEarned)}`, true);
-                userData.balance += totalEarned; // Adicionar ao saldo disponível
-                
-                // Efeito visual
-                flashEarningNotification(totalEarned);
+            if (!phone || !pin) {
+                showMessage(loginMessage, 'Por favor, preencha todos os campos.', 'error');
+                return;
             }
             
-            updateDashboard();
-        }
-
-        // Efeito de notificação de ganho
-        function flashEarningNotification(amount) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: var(--primary);
-                color: white;
-                padding: 2rem;
-                border-radius: 15px;
-                font-size: 2rem;
-                font-weight: bold;
-                z-index: 3000;
-                animation: fadeInOut 3s ease-in-out;
-                border: 3px solid gold;
-                text-align: center;
-            `;
+            if (phone.length !== 9) {
+                showMessage(loginMessage, 'Número de telefone deve ter 9 dígitos.', 'error');
+                return;
+            }
             
-            notification.innerHTML = `
-                <div> GANHO HORÁRIO!</div>
-                <div style="color: gold; font-size: 2.5rem;">+${formatCurrency(amount)}</div>
-                <div style="font-size: 1rem;">Adicionado à sua conta</div>
-            `;
+            if (pin.length !== 4) {
+                showMessage(loginMessage, 'PIN deve ter 4 dígitos.', 'error');
+                return;
+            }
             
-            document.body.appendChild(notification);
+            // Verificar se o usuário existe no localStorage
+            const storedUser = localStorage.getItem(`mznUser_${phone}`);
             
+            if (!storedUser) {
+                showMessage(loginMessage, 'Número não registrado. Crie uma conta.', 'error');
+                return;
+            }
+            
+            userData = JSON.parse(storedUser);
+            
+            // Verificar se o PIN corresponde
+            if (userData.pin !== pin) {
+                showMessage(loginMessage, 'PIN incorreto.', 'error');
+                return;
+            }
+            
+            // Login bem-sucedido
+            showDashboard();
+        });
+        
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            userData = null;
+            stopCounter();
+            loginForm.style.display = 'flex';
+            dashboard.style.display = 'none';
+            
+            // Limpar formulário de login
+            document.getElementById('login-phone').value = '';
+            document.getElementById('login-pin').value = '';
+        });
+        
+        // Abrir modal de transferência
+        transferBtn.addEventListener('click', () => {
+            // Resetar formulário de transferência
+            document.getElementById('recipient-phone').value = '';
+            document.getElementById('transfer-amount').value = '';
+            document.getElementById('transfer-reference').value = '';
+            document.getElementById('transfer-pin').value = '';
+            
+            // Mostrar primeiro passo
+            transferStep1.style.display = 'block';
+            transferStep2.style.display = 'none';
+            
+            transferModal.style.display = 'flex';
+        });
+        
+        // Calcular total da transferência
+        document.getElementById('transfer-amount').addEventListener('input', () => {
+            const amount = parseInt(document.getElementById('transfer-amount').value) || 0;
+            const serviceFee = 1.50; // Taxa fixa de 1.50 MZN
+            const total = amount + serviceFee;
+            
+            document.getElementById('total-debit').textContent = total + ' MZN';
+        });
+        
+        // Próximo passo da transferência
+        nextToConfirmBtn.addEventListener('click', () => {
+            const recipientPhone = document.getElementById('recipient-phone').value;
+            const amount = parseInt(document.getElementById('transfer-amount').value);
+            const reference = document.getElementById('transfer-reference').value;
+            
+            if (!recipientPhone || recipientPhone.length !== 9) {
+                showMessage(transferMessage, 'Por favor, insira um número de telefone válido.', 'error');
+                return;
+            }
+            
+            if (!amount || amount <= 0) {
+                showMessage(transferMessage, 'Por favor, insira um valor válido.', 'error');
+                return;
+            }
+            
+            if (amount < 500) {
+                showMessage(transferMessage, 'O valor mínimo de transferência é 500 MZN.', 'error');
+                return;
+            }
+            
+            const serviceFee = 5;
+            const total = amount + serviceFee;
+            
+            if (userData.balance < total) {
+                showMessage(transferMessage, 'Saldo insuficiente para realizar esta transferência.', 'error');
+                return;
+            }
+            
+            // Verificar se o destinatário existe
+            const recipientUser = localStorage.getItem(`mznUser_${recipientPhone}`);
+            if (!recipientUser) {
+                showMessage(transferMessage, 'Destinatário não encontrado. Verifique o número.', 'error');
+                return;
+            }
+            
+            // Verificar se não está transferindo para si mesmo
+            if (recipientPhone === userData.phone) {
+                showMessage(transferMessage, 'Não pode transferir para o seu próprio número.', 'error');
+                return;
+            }
+            
+            // Salvar dados da transferência
+            transferData = {
+                recipientPhone: recipientPhone,
+                amount: amount,
+                reference: reference,
+                serviceFee: serviceFee,
+                total: total
+            };
+            
+            // Preencher detalhes de confirmação
+            document.getElementById('confirm-recipient').textContent = recipientPhone;
+            document.getElementById('confirm-amount').textContent = amount + ' MZN';
+            document.getElementById('confirm-fee').textContent = serviceFee + ' MZN';
+            document.getElementById('confirm-total').textContent = total + ' MZN';
+            document.getElementById('confirm-reference').textContent = reference || '-';
+            
+            // Mostrar passo de confirmação
+            transferStep1.style.display = 'none';
+            transferStep2.style.display = 'block';
+        });
+        
+        // Voltar para o formulário de transferência
+        backToTransferBtn.addEventListener('click', () => {
+            transferStep1.style.display = 'block';
+            transferStep2.style.display = 'none';
+        });
+        
+        // Confirmar transferência
+        confirmTransferBtn.addEventListener('click', () => {
+            const pin = document.getElementById('transfer-pin').value;
+            
+            if (!pin || pin.length !== 4) {
+                showMessage(confirmTransferMessage, 'Por favor, insira seu PIN.', 'error');
+                return;
+            }
+            
+            if (userData.pin !== pin) {
+                showMessage(confirmTransferMessage, 'PIN incorreto.', 'error');
+                return;
+            }
+            
+            // Processar transferência
+            processTransfer();
+        });
+        
+        // Abrir modal de levantamento
+        withdrawBtn.addEventListener('click', () => {
+            // Preencher número do usuário por padrão
+            document.getElementById('withdraw-phone').value = userData.phone;
+            withdrawModal.style.display = 'flex';
+        });
+        
+        // Abrir modal de histórico
+        historyBtn.addEventListener('click', () => {
+            showHistoryModal();
+        });
+        
+        // Fechar modais
+        closeModals.forEach(closeBtn => {
+            closeBtn.addEventListener('click', () => {
+                transferModal.style.display = 'none';
+                withdrawModal.style.display = 'none';
+                historyModal.style.display = 'none';
+            });
+        });
+        
+        // Processar transferência Paga Fácil
+        function processTransfer() {
+            // Simular processamento
             setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 3000);
-        }
-
-        // Adicionar atividade
-        function addActivity(activity, isEarning = false) {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('pt-MZ', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            
-            const activityText = isEarning ? 
-                `<span class="hourly-earning">${activity}</span>` : 
-                activity;
+                // Debitar da conta do remetente
+                userData.balance -= transferData.total;
                 
-            userData.activities.unshift(`${activityText} - ${timeString}`);
+                // Adicionar transação de saída ao histórico do remetente
+                userData.transactions.unshift({
+                    type: 'transfer',
+                    amount: -transferData.amount,
+                    fee: transferData.serviceFee,
+                    date: new Date().toLocaleString('pt-MZ'),
+                    method: 'Paga Fácil',
+                    reference: transferData.reference || 'Transferência',
+                    recipient: transferData.recipientPhone
+                });
+                
+                // Atualizar localStorage do remetente
+                localStorage.setItem(`mznUser_${userData.phone}`, JSON.stringify(userData));
+                
+                // Creditar na conta do destinatário
+                const recipientUser = JSON.parse(localStorage.getItem(`mznUser_${transferData.recipientPhone}`));
+                recipientUser.balance += transferData.amount;
+                
+                // Adicionar transação de entrada ao histórico do destinatário
+                recipientUser.transactions.unshift({
+                    type: 'transfer',
+                    amount: transferData.amount,
+                    date: new Date().toLocaleString('pt-MZ'),
+                    method: 'Paga Fácil',
+                    reference: transferData.reference || 'Transferência recebida',
+                    sender: userData.phone
+                });
+                
+                // Atualizar localStorage do destinatário
+                localStorage.setItem(`mznUser_${transferData.recipientPhone}`, JSON.stringify(recipientUser));
+                
+                // Atualizar dashboard
+                updateDashboard();
+                
+                showMessage(confirmTransferMessage, `Transferência de ${transferData.amount} MZN realizada com sucesso!`, 'success');
+                
+                // Fechar modal após 2 segundos
+                setTimeout(() => {
+                    transferModal.style.display = 'none';
+                    confirmTransferMessage.style.display = 'none';
+                }, 2000);
+            }, 1500);
+        }
+        
+        // Confirmar levantamento
+        document.getElementById('confirm-withdraw').addEventListener('click', () => {
+            const amount = parseInt(document.getElementById('withdraw-amount').value);
+            const phone = document.getElementById('withdraw-phone').value;
             
-            // Manter apenas últimas 10 atividades
-            if (userData.activities.length > 10) {
-                userData.activities.pop();
+            if (!amount || amount <= 0) {
+                showMessage(withdrawMessage, 'Por favor, insira um valor válido.', 'error');
+                return;
             }
             
-            updateActivityList();
-        }
-
-        // Atualizar lista de atividades
-        function updateActivityList() {
-            const activityList = document.getElementById('activityList');
-            activityList.innerHTML = '';
+            if (amount < 350) {
+                showMessage(withdrawMessage, 'O valor mínimo de levantamento é 350 MZN.', 'error');
+                return;
+            }
             
-            userData.activities.forEach(activity => {
-                const activityItem = document.createElement('div');
-                activityItem.className = 'activity-item';
-                activityItem.innerHTML = activity;
-                activityList.appendChild(activityItem);
+            if (!phone || phone.length !== 9) {
+                showMessage(withdrawMessage, 'Por favor, insira um número de telefone válido.', 'error');
+                return;
+            }
+            
+            if (userData.balance < amount) {
+                showMessage(withdrawMessage, 'Saldo insuficiente para este levantamento.', 'error');
+                return;
+            }
+            
+            // Simular levantamento via Paga Fácil
+            userData.balance -= amount;
+            
+            // Adicionar transação ao histórico
+            userData.transactions.unshift({
+                type: 'withdrawal',
+                amount: amount,
+                date: new Date().toLocaleString('pt-MZ'),
+                method: 'Paga Fácil',
+                reference: 'Levantamento para ' + phone
             });
-        }
-
-        // Timer para ganhos horários
-        function startHourlyTimer() {
-            updateTimers();
             
-            setInterval(() => {
-                timeUntilNextEarning--;
-                
-                if (timeUntilNextEarning <= 0) {
-                    timeUntilNextEarning = 60 * 60; // Reset para 1 hora
-                    processHourlyEarnings();
+            // Atualizar localStorage
+            localStorage.setItem(`mznUser_${userData.phone}`, JSON.stringify(userData));
+            
+            // Atualizar dashboard
+            updateDashboard();
+            
+            showMessage(withdrawMessage, `Levantamento de ${amount} MZN realizado com sucesso para ${phone}!`, 'success');
+            
+            // Fechar modal após 2 segundos
+            setTimeout(() => {
+                withdrawModal.style.display = 'none';
+                document.getElementById('withdraw-amount').value = '';
+                withdrawMessage.style.display = 'none';
+            }, 2000);
+        });
+        
+        // Iniciar contador
+        startCounterBtn.addEventListener('click', () => {
+            if (!isCounterRunning) {
+                // Verificar se o usuário já fez o investimento hoje
+                const today = new Date().toDateString();
+                if (userData.lastInvestmentDate === today) {
+                    showMessage(dashboardMessage, 'Você já fez seu Ganho diário hoje. Volte amanhã!', 'error');
+                    return;
                 }
                 
-                updateTimers();
+                startCounter();
+                showMessage(dashboardMessage, 'Contador iniciado! Complete 5 minutos para receber seu retorno diário.', 'success');
+            } else {
+                showMessage(dashboardMessage, 'O contador já está em execução.', 'error');
+            }
+        });
+        
+        // Função para mostrar o dashboard
+        function showDashboard() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            dashboard.style.display = 'block';
+            
+            updateDashboard();
+        }
+        
+        // Atualizar informações do dashboard
+        function updateDashboard() {
+            userName.textContent = userData.name;
+            userPhone.textContent = userData.phone;
+            userBalance.textContent = userData.balance;
+            todayEarnings.textContent = userData.todayEarnings + ' MZN';
+            totalEarnings.textContent = userData.totalEarnings + ' MZN';
+            investmentsCompleted.textContent = userData.investmentsCompleted || 0;
+            
+            // Calcular média de ganhos por investimento
+            if (userData.investmentsCompleted > 0) {
+                avgEarnings.textContent = Math.round(userData.totalEarnings / userData.investmentsCompleted) + ' MZN';
+            } else {
+                avgEarnings.textContent = '0 MZN';
+            }
+            
+            // Calcular tempo total de investimento
+            totalTime.textContent = (userData.totalInvestmentTime || 0) + 'min';
+            
+            // Verificar se o usuário já fez o investimento hoje
+            const today = new Date().toDateString();
+            if (userData.lastInvestmentDate === today) {
+                startCounterBtn.disabled = true;
+                startCounterBtn.classList.remove('primary-btn');
+                startCounterBtn.classList.add('disabled-btn');
+                startCounterBtn.innerHTML = 'Já Investiu Hoje <span class="quick-earnings-badge">5min</span>';
+                
+                nextInvestmentInfo.innerHTML = `
+                    <h4>✅ Ganho Diário Concluído!</h4>
+                    <p>Você já fez seu Ganho diário volta amanhã </p>
+                `;
+            } else {
+                startCounterBtn.disabled = false;
+                startCounterBtn.classList.remove('disabled-btn');
+                startCounterBtn.classList.add('primary-btn');
+                startCounterBtn.innerHTML = 'Iniciar Contador <span class="quick-earnings-badge">5min</span>';
+                
+                nextInvestmentInfo.innerHTML = `
+                    <h4> Próximo Investimento Disponível!</h4>
+                    <p>Você pode fazer seu investimento diário de 5 minutos agora!</p>
+                `;
+            }
+            
+            // Atualizar lista de transações
+            updateTransactionList();
+        }
+        
+        // Atualizar lista de transações no dashboard
+        function updateTransactionList() {
+            const transactionsList = document.getElementById('transactions-list');
+            transactionsList.innerHTML = '';
+            
+            // Mostrar apenas as últimas 3 transações
+            const recentTransactions = userData.transactions.slice(0, 3);
+            
+            if (recentTransactions.length === 0) {
+                transactionsList.innerHTML = '<p>Nenhuma transação realizada ainda.</p>';
+                return;
+            }
+            
+            recentTransactions.forEach(transaction => {
+                const transactionItem = document.createElement('div');
+                transactionItem.className = 'transaction-item';
+                
+                let typeClass, typeText, amountText;
+                
+                if (transaction.type === 'bonus') {
+                    typeClass = 'earning';
+                    typeText = 'Bónus';
+                    amountText = `+${transaction.amount} MZN`;
+                } else if (transaction.type === 'withdrawal') {
+                    typeClass = 'withdrawal';
+                    typeText = 'Levantamento';
+                    amountText = `-${transaction.amount} MZN`;
+                } else if (transaction.type === 'earning') {
+                    typeClass = 'earning';
+                    typeText = 'Ganho';
+                    amountText = `+${transaction.amount} MZN`;
+                } else if (transaction.type === 'transfer') {
+                    typeClass = 'transfer';
+                    if (transaction.amount > 0) {
+                        typeText = 'Transferência Recebida';
+                        amountText = `+${transaction.amount} MZN`;
+                    } else {
+                        typeText = 'Transferência Enviada';
+                        amountText = `${transaction.amount} MZN`;
+                    }
+                }
+                
+                transactionItem.innerHTML = `
+                    <div>
+                        <span class="transaction-type ${typeClass}">${typeText}</span>
+                        <div>${transaction.date}</div>
+                        <div style="font-size: 12px; opacity: 0.7;">
+                            ${transaction.method || ''} 
+                            ${transaction.reference ? ' - ' + transaction.reference : ''}
+                            ${transaction.recipient ? ' para ' + transaction.recipient : ''}
+                            ${transaction.sender ? ' de ' + transaction.sender : ''}
+                            ${transaction.fee ? ' (Taxa: ' + transaction.fee + ' MZN)' : ''}
+                        </div>
+                    </div>
+                    <div>${amountText}</div>
+                `;
+                
+                transactionsList.appendChild(transactionItem);
+            });
+        }
+        
+        // Mostrar modal de histórico completo
+        function showHistoryModal() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+            
+            if (userData.transactions.length === 0) {
+                historyList.innerHTML = '<p>Nenhuma transação realizada ainda.</p>';
+            } else {
+                userData.transactions.forEach(transaction => {
+                    const transactionItem = document.createElement('div');
+                    transactionItem.className = 'transaction-item';
+                    
+                    let typeClass, typeText, amountText;
+                    
+                    if (transaction.type === 'bonus') {
+                        typeClass = 'earning';
+                        typeText = 'Bónus';
+                        amountText = `+${transaction.amount} MZN`;
+                    } else if (transaction.type === 'withdrawal') {
+                        typeClass = 'withdrawal';
+                        typeText = 'Levantamento';
+                        amountText = `-${transaction.amount} MZN`;
+                    } else if (transaction.type === 'earning') {
+                        typeClass = 'earning';
+                        typeText = 'Ganho';
+                        amountText = `+${transaction.amount} MZN`;
+                    } else if (transaction.type === 'transfer') {
+                        typeClass = 'transfer';
+                        if (transaction.amount > 0) {
+                            typeText = 'Transferência Recebida';
+                            amountText = `+${transaction.amount} MZN`;
+                        } else {
+                            typeText = 'Transferência Enviada';
+                            amountText = `${transaction.amount} MZN`;
+                        }
+                    }
+                    
+                    transactionItem.innerHTML = `
+                        <div>
+                            <span class="transaction-type ${typeClass}">${typeText}</span>
+                            <div>${transaction.date}</div>
+                            <div style="font-size: 12px; opacity: 0.7;">
+                                ${transaction.method || ''} 
+                                ${transaction.reference ? ' - ' + transaction.reference : ''}
+                                ${transaction.recipient ? ' para ' + transaction.recipient : ''}
+                                ${transaction.sender ? ' de ' + transaction.sender : ''}
+                                ${transaction.fee ? ' (Taxa: ' + transaction.fee + ' MZN)' : ''}
+                            </div>
+                        </div>
+                        <div>${amountText}</div>
+                    `;
+                    
+                    historyList.appendChild(transactionItem);
+                });
+            }
+            
+            historyModal.style.display = 'flex';
+        }
+        
+        // Iniciar contador de 5 minutos
+        function startCounter() {
+            isCounterRunning = true;
+            counterTime = 5 * 60; // Reset para 5 minutos
+            
+            counterInterval = setInterval(() => {
+                counterTime--;
+                
+                // Atualizar display do contador
+                const minutes = Math.floor(counterTime / 60);
+                const seconds = counterTime % 60;
+                
+                counterDisplay.textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Atualizar texto do tempo restante
+                timeRemaining.textContent = `Tempo restante: ${minutes} minutos e ${seconds} segundos`;
+                
+                // Atualizar barra de progresso
+                const progress = ((5 * 60 - counterTime) / (5 * 60)) * 100;
+                timerProgressBar.style.width = `${progress}%`;
+                
+                // Efeito de pulsação quando faltar menos de 1 minuto
+                if (counterTime <= 60) {
+                    counterDisplay.classList.add('countdown-pulse');
+                } else {
+                    counterDisplay.classList.remove('countdown-pulse');
+                }
+                
+                // Quando o contador chegar a zero
+                if (counterTime <= 0) {
+                    stopCounter();
+                    
+                    // Calcular ganhos (entre 5 e 15 MZN)
+                    const earnings = Math.floor(Math.random() * 11) + 5;
+                    
+                    // Atualizar dados do usuário
+                    userData.balance += earnings;
+                    userData.todayEarnings += earnings;
+                    userData.totalEarnings += earnings;
+                    userData.investmentsCompleted = (userData.investmentsCompleted || 0) + 1;
+                    userData.totalInvestmentTime = (userData.totalInvestmentTime || 0) + 5;
+                    userData.lastInvestmentDate = new Date().toDateString();
+                    
+                    // Adicionar transação ao histórico
+                    userData.transactions.unshift({
+                        type: 'earning',
+                        amount: earnings,
+                        date: new Date().toLocaleString('pt-MZ'),
+                        method: 'Investimento Diário',
+                        reference: 'Ganho de 5 minutos'
+                    });
+                    
+                    // Atualizar localStorage
+                    localStorage.setItem(`mznUser_${userData.phone}`, JSON.stringify(userData));
+                    
+                    // Atualizar dashboard
+                    updateDashboard();
+                    
+                    showMessage(dashboardMessage, `Parabéns! Você ganhou ${earnings} MZN em apenas 5 minutos! Investimento diário concluído.`, 'success');
+                }
             }, 1000);
         }
-
-        function updateTimers() {
-            const minutes = Math.floor(timeUntilNextEarning / 60);
-            const seconds = timeUntilNextEarning % 60;
-            const timerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            document.getElementById('nextEarningTimer').textContent = timerText;
-            document.getElementById('dashboardTimer').textContent = timerText;
+        
+        // Parar contador
+        function stopCounter() {
+            isCounterRunning = false;
+            clearInterval(counterInterval);
+            counterDisplay.textContent = '05:00';
+            timerProgressBar.style.width = '0%';
+            timeRemaining.textContent = 'Tempo restante: 5 minutos';
+            counterDisplay.classList.remove('countdown-pulse');
         }
-
-        // Formatador de moeda
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('pt-MZ', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }).format(amount) + ' MZN';
-        }
-
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
-            // Esconder forms de auth e dashboard inicialmente
-            hideAuth();
+        
+        // Mostrar mensagem
+        function showMessage(element, text, type) {
+            element.textContent = text;
+            element.className = 'message ' + type;
+            element.style.display = 'block';
             
-            // Adicionar estilo de animação
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes fadeInOut {
-                    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-                    20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-                    40% { transform: translate(-50%, -50%) scale(1); }
-                    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-                    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-                }
-            `;
-            document.head.appendChild(style);
-        });
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
     </script>
 </body>
 </html>
