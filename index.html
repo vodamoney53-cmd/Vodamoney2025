@@ -557,7 +557,7 @@
             </div>
             
             <div class="counter-container">
-                <div class="counter-label">Contador de Investimento Diário</div>
+                <div class="counter-label">Contador de Ganhos Diário</div>
                 <div class="counter countdown-pulse" id="counter">05:00</div>
                 <div class="time-remaining" id="time-remaining">Tempo restante: 5 minutos</div>
                 <div class="timer-progress">
@@ -1164,7 +1164,7 @@
         // Iniciar contador
         startCounterBtn.addEventListener('click', () => {
             if (!isCounterRunning) {
-                // Verificar se o usuário já fez o investimento hoje
+                // Verificar se o usuário já fez o ganho de hoje
                 const today = new Date().toDateString();
                 if (userData.lastInvestmentDate === today) {
                     showMessage(dashboardMessage, 'Você já fez seu Ganho diário hoje. Volte amanhã!', 'error');
