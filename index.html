@@ -572,7 +572,7 @@
                 <div class="investment-stats">
                     <div class="stat-box">
                         <div class="stat-value" id="investments-completed">0</div>
-                        <div class="stat-label">Investimentos</div>
+                        <div class="stat-label">Coletor</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-value" id="avg-earnings">0 MZN</div>
@@ -1225,8 +1225,8 @@
                 startCounterBtn.innerHTML = 'Iniciar Contador <span class="quick-earnings-badge">5min</span>';
                 
                 nextInvestmentInfo.innerHTML = `
-                    <h4> Próximo Investimento Disponível!</h4>
-                    <p>Você pode fazer seu investimento diário de 5 minutos agora!</p>
+                    <h4> ✅Próximo Ganho Disponível!</h4>
+                    <p>Você pode fazer seu ganho diário de 5 minutos agora!</p>
                 `;
             }
             
@@ -1413,7 +1413,7 @@
                     // Atualizar dashboard
                     updateDashboard();
                     
-                    showMessage(dashboardMessage, `Parabéns! Você ganhou ${earnings} MZN em apenas 5 minutos! Investimento diário concluído.`, 'success');
+                    showMessage(dashboardMessage, `Parabéns! Você ganhou ${earnings} MZN em apenas 5 minutos! Ganhos diário concluído.`, 'success');
                 }
             }, 1000);
         }
