@@ -842,7 +842,7 @@
                 name: name,
                 phone: phone,
                 pin: pin,
-                balance: 100, // Bónus de 100 MZN
+                balance: 25.00, // Bónus de 25.00 MZN
                 todayEarnings: 0,
                 totalEarnings: 0,
                 investmentsCompleted: 0,
@@ -850,7 +850,7 @@
                 lastInvestmentDate: null,
                 transactions: [{
                     type: 'bonus',
-                    amount: 100,
+                    amount: 25.00,
                     date: new Date().toLocaleString('pt-MZ'),
                     method: 'Bónus de Registo',
                     reference: 'Bónus de Boas-Vindas'
@@ -1118,8 +1118,8 @@
                 return;
             }
             
-            if (amount < 350) {
-                showMessage(withdrawMessage, 'O valor mínimo de levantamento é 350 MZN.', 'error');
+            if (amount < 150) {
+                showMessage(withdrawMessage, 'O valor mínimo de levantamento é 150 MZN.', 'error');
                 return;
             }
             
@@ -1387,15 +1387,15 @@
                 if (counterTime <= 0) {
                     stopCounter();
                     
-                    // Calcular ganhos (entre 5 e 15 MZN)
-                    const earnings = Math.floor(Math.random() * 11) + 5;
+                    // Calcular ganhos (entre 3 e 6 MZN)
+                    const earnings = Math.floor(Math.random() * 4) + 2;
                     
                     // Atualizar dados do usuário
                     userData.balance += earnings;
                     userData.todayEarnings += earnings;
                     userData.totalEarnings += earnings;
                     userData.investmentsCompleted = (userData.investmentsCompleted || 0) + 1;
-                    userData.totalInvestmentTime = (userData.totalInvestmentTime || 0) + 5;
+                    userData.totalInvestmentTime = (userData.totalInvestmentTime || 0) + 3;
                     userData.lastInvestmentDate = new Date().toDateString();
                     
                     // Adicionar transação ao histórico
