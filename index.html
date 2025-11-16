@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VodaMoney-Moçambique</title>
+    <title>VodaMoney - Moçambique</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1976D2 0%, #0D47A1 100%);
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -29,7 +29,7 @@
         .form-container {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(13, 71, 161, 0.2);
+            box-shadow: 0 15px 35px rgba(183, 28, 28, 0.3);
             padding: 40px;
             position: relative;
             overflow: hidden;
@@ -41,7 +41,7 @@
         }
 
         .logo h1 {
-            color: #1976D2;
+            color: #D32F2F;
             font-size: 28px;
             margin-bottom: 5px;
         }
@@ -77,13 +77,13 @@
         h2 {
             text-align: center;
             margin-bottom: 30px;
-            color: #1976D2;
+            color: #D32F2F;
             font-size: 24px;
         }
 
         h3 {
             margin-bottom: 20px;
-            color: #1976D2;
+            color: #D32F2F;
         }
 
         .input-group {
@@ -109,8 +109,8 @@
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #1976D2;
-            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+            border-color: #D32F2F;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
         }
 
         .phone-input {
@@ -137,7 +137,7 @@
         .btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #1976D2 0%, #0D47A1 100%);
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -150,7 +150,7 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(25, 118, 210, 0.3);
+            box-shadow: 0 7px 14px rgba(211, 47, 47, 0.4);
         }
 
         .btn:active {
@@ -162,23 +162,23 @@
         }
 
         .btn-success {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            background: linear-gradient(135deg, #388E3C 0%, #1B5E20 100%);
         }
 
         .btn-warning {
-            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            background: linear-gradient(135deg, #F57C00 0%, #E65100 100%);
         }
 
         .btn-info {
-            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            background: linear-gradient(135deg, #0288D1 0%, #01579B 100%);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
         }
 
         .switch-form {
@@ -189,7 +189,7 @@
         }
 
         .switch-form a {
-            color: #1976D2;
+            color: #D32F2F;
             text-decoration: none;
             font-weight: 600;
             margin-left: 5px;
@@ -197,18 +197,18 @@
         }
 
         .switch-form a:hover {
-            color: #0D47A1;
+            color: #B71C1C;
             text-decoration: underline;
         }
 
-        /* Carteira - Tema Azul */
+        /* Carteira - Tema Vermelho */
         .wallet-card {
-            background: linear-gradient(135deg, #1976D2 0%, #0D47A1 100%);
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
             color: white;
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
-            box-shadow: 0 10px 25px rgba(25, 118, 210, 0.3);
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.4);
         }
 
         .wallet-header {
@@ -262,9 +262,9 @@
             transform: translateY(-2px);
         }
 
-        /* Referência - Tema Azul */
+        /* Referência - Tema Vermelho */
         .referral-section {
-            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            background: linear-gradient(135deg, #F44336 0%, #D32F2F 100%);
             color: white;
             border-radius: 15px;
             padding: 20px;
@@ -343,13 +343,13 @@
         }
 
         .mining-machine:hover {
-            border-color: #1976D2;
+            border-color: #D32F2F;
             transform: translateY(-2px);
         }
 
         .mining-machine.active {
-            border-color: #1976D2;
-            background: #e3f2fd;
+            border-color: #D32F2F;
+            background: #ffebee;
         }
 
         .machine-header {
@@ -361,13 +361,13 @@
 
         .machine-name {
             font-weight: bold;
-            color: #1976D2;
+            color: #D32F2F;
             font-size: 16px;
         }
 
         .machine-cost {
             font-weight: bold;
-            color: #dc3545;
+            color: #D32F2F;
         }
 
         .machine-details {
@@ -384,13 +384,13 @@
         }
 
         .machine-profit {
-            color: #28a745;
+            color: #388E3C;
             font-weight: bold;
         }
 
         .active-mining {
-            background: #e3f2fd;
-            border: 2px solid #1976D2;
+            background: #ffebee;
+            border: 2px solid #D32F2F;
             border-radius: 10px;
             padding: 15px;
             margin: 15px 0;
@@ -405,7 +405,7 @@
         }
 
         .progress-bar {
-            background: linear-gradient(135deg, #1976D2 0%, #2196F3 100%);
+            background: linear-gradient(135deg, #D32F2F 0%, #F44336 100%);
             height: 100%;
             transition: width 0.3s;
         }
@@ -424,7 +424,7 @@
 
         .transactions h3 {
             margin-bottom: 15px;
-            color: #1976D2;
+            color: #D32F2F;
         }
 
         .transaction-list {
@@ -472,25 +472,25 @@
         }
 
         .positive {
-            color: #28a745;
+            color: #388E3C;
         }
 
         .negative {
-            color: #dc3545;
+            color: #D32F2F;
         }
 
         .user-info {
             text-align: center;
             margin-bottom: 20px;
             padding: 15px;
-            background: #e3f2fd;
+            background: #ffebee;
             border-radius: 10px;
-            border: 1px solid #1976D2;
+            border: 1px solid #D32F2F;
         }
 
         .user-name {
             font-weight: bold;
-            color: #1976D2;
+            color: #D32F2F;
             margin-bottom: 5px;
         }
 
@@ -508,7 +508,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(13, 71, 161, 0.5);
+            background-color: rgba(183, 28, 28, 0.5);
             backdrop-filter: blur(5px);
         }
 
@@ -521,7 +521,7 @@
             max-width: 500px;
             position: relative;
             animation: modalSlideIn 0.3s ease-out;
-            box-shadow: 0 10px 25px rgba(25, 118, 210, 0.3);
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.4);
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -537,17 +537,17 @@
             top: 15px;
             font-size: 24px;
             cursor: pointer;
-            color: #1976D2;
+            color: #D32F2F;
             transition: color 0.2s;
         }
 
         .close:hover {
-            color: #0D47A1;
+            color: #B71C1C;
         }
 
         .modal h3 {
             margin-bottom: 15px;
-            color: #1976D2;
+            color: #D32F2F;
         }
 
         .modal p {
@@ -563,14 +563,14 @@
         }
 
         .success {
-            color: #28a745;
+            color: #388E3C;
             font-size: 14px;
             margin-top: 5px;
             display: none;
         }
 
         .warning {
-            color: #ffc107;
+            color: #F57C00;
             font-size: 14px;
             margin-top: 5px;
             display: none;
@@ -578,15 +578,15 @@
 
         /* Instruções */
         .instructions {
-            background: #e3f2fd;
+            background: #ffebee;
             border-radius: 10px;
             padding: 20px;
             margin: 20px 0;
-            border-left: 4px solid #1976D2;
+            border-left: 4px solid #D32F2F;
         }
 
         .instructions h4 {
-            color: #1976D2;
+            color: #D32F2F;
             margin-bottom: 10px;
         }
 
@@ -601,11 +601,11 @@
         }
 
         .transaction-details {
-            background: #e3f2fd;
+            background: #ffebee;
             border-radius: 10px;
             padding: 15px;
             margin: 15px 0;
-            border: 1px solid #1976D2;
+            border: 1px solid #D32F2F;
         }
 
         .transaction-details p {
@@ -615,8 +615,8 @@
         }
 
         .balance-info {
-            background: #e3f2fd;
-            border: 2px solid #1976D2;
+            background: #ffebee;
+            border: 2px solid #D32F2F;
             border-radius: 8px;
             padding: 15px;
             margin: 15px 0;
@@ -626,13 +626,13 @@
         .balance-info .current-balance {
             font-size: 18px;
             font-weight: bold;
-            color: #1976D2;
+            color: #D32F2F;
         }
 
         /* Código Comercial */
         .commercial-code {
-            background: #e3f2fd;
-            border: 2px dashed #1976D2;
+            background: #ffebee;
+            border: 2px dashed #D32F2F;
             border-radius: 10px;
             padding: 20px;
             margin: 15px 0;
@@ -643,21 +643,21 @@
             font-family: monospace;
             font-size: 24px;
             font-weight: bold;
-            color: #0D47A1;
+            color: #B71C1C;
             margin: 10px 0;
             letter-spacing: 2px;
         }
 
         .agent-info {
-            background: #e3f2fd;
-            border: 1px solid #1976D2;
+            background: #ffebee;
+            border: 1px solid #D32F2F;
             border-radius: 8px;
             padding: 15px;
             margin: 15px 0;
         }
 
         .agent-info h4 {
-            color: #0D47A1;
+            color: #B71C1C;
             margin-bottom: 10px;
         }
 
@@ -892,23 +892,23 @@
                 <div class="instructions">
                     <h4> Como depositar usando Código Comercial:</h4>
                     <ol>
-                        <li>Vá a qualquer agente Paga Fácil (Supermercado, Loja, etc.)</li>
-                        <li>Diga que quer fazer um depósito usando <strong>Código Comercial</strong></li>
-                        <li>Forneça o código comercial abaixo ao agente</li>
-                        <li>Informe o valor que deseja depositar</li>
-                        <li>Pague o valor + taxa do agente</li>
-                        <li>Guarde o comprovante com o <strong>Número de referência</strong></li>
-                        <li>Volte aqui e registe o depósito</li>
+                        <li>Para fazer o pagamento primeiro discar *150# e opção de chamada)</li>
+                        <li>Na opções de M-Pesa selecionar opção 4 de seguida digite o código do comerciante que é 1202460</strong></li>
+                        <li>De seguida valor que pretende investir em seguida digite o seu PIN do M-Pesa </li>
+                        <li>Confirme com nome de Albertino-Venda Online e aguarde pela confirmação do pagamento</li>
+                        <li>Copia a mensagem do pagamento da referência de 4 dígitos colar no número de referência</li>
+                        <li>Guarde o comprovante com  <strong>você para melhor segurança</strong></li>
+                        <li>Vá embaixo e registe o depósito</li>
                     </ol>
                 </div>
 
                 <div class="commercial-code">
                     <h4>Código de Pagamento comercial</h4>
                     <div class="commercial-code-number" id="commercialCode">CARREGANDO...</div>
-                    <small><h3>Atendimento ao Cliente</h3>
-</small>E-mal: vodamoney53@gmail.com
+                    <small><h3>Atendimento ao Cliente</h3></small>
+                    <p>E-mail: vodamoney53@gmail.com</p>
                     <button class="btn btn-primary" onclick="copyCommercialCode()" style="margin-top: 10px;">
-                         1198697
+                         Copiar primeiro código
                     </button>
                 </div>
 
@@ -1061,8 +1061,8 @@
                     <ol>
                         <li>Compartilhe seu código único com amigos</li>
                         <li>Seu amigo usa o código ao registar-se</li>
-                        <li>Você recebe <strong>15 MT</strong> de bónus quando ele fizer o primeiro depósito</li>
-                        <li>Seu amigo também recebe <strong>15 MT</strong> de bónus</li>
+                        <li>Você recebe <strong>10 MT</strong> de bónus quando ele fizer o primeiro depósito</li>
+                        <li>Seu amigo também recebe <strong>10 MT</strong> de bónus</li>
                         <li>Ganhe <strong>5%</strong> de comissão sobre os investimentos em mineração dos seus referidos</li>
                     </ol>
                 </div>
@@ -1097,7 +1097,7 @@
     </div>
 
     <script>
-        // Todo o JavaScript permanece EXATAMENTE o mesmo
+        // Implementação com tema vermelho
         class CarteiraMZN {
             constructor() {
                 this.users = JSON.parse(localStorage.getItem('mzn_users')) || [];
@@ -1262,8 +1262,8 @@
             }
 
             generateCommercialCode() {
-                const numbers = '1198697';
-                let commercialCode = 'VD';
+                const numbers = '01202460';
+                let commercialCode = 'VM';
                 for (let i = 0; i < 6; i++) {
                     commercialCode += numbers.charAt(Math.floor(Math.random() * numbers.length));
                 }
@@ -1324,7 +1324,7 @@
 
                 const referenceRegex = /^\d{8,12}$/;
                 if (!referenceRegex.test(referenceNumber)) {
-                    errorElement.textContent = 'Use ID de valido.';
+                    errorElement.textContent = 'Número de referência deve ter entre 8 e 12 dígitos.';
                     errorElement.style.display = 'block';
                     successElement.style.display = 'none';
                     return false;
@@ -1512,7 +1512,7 @@
                     this.showError('loginPhoneError', 'Por favor, insira o seu número MZN.');
                     isValid = false;
                 } else if (!this.validatePhone(phone)) {
-                    this.showError('loginPhoneError', 'Por favor, insira um número MZN válido (ex: 84 123 4567).');
+                    this.showError('loginPhoneError', 'Por favor, insira um número  válido (ex: 84 123 4567).');
                     isValid = false;
                 }
 
@@ -1700,7 +1700,7 @@
                 });
 
                 if (this.referrals[referrer.phone]) {
-                    this.referrals[referrer.phone].totalEarnings += 50;
+                    this.referrals[referrer.phone].totalEarnings += 15;
                     
                     const referredUserData = this.referrals[referrer.phone].referredUsers.find(u => u.phone === referredUserPhone);
                     if (referredUserData) {
@@ -1781,7 +1781,7 @@
                 const referralLink = `${window.location.origin}${window.location.pathname}?ref=${this.currentUser.referralCode}`;
                 document.getElementById('referralLink').value = referralLink;
                 
-                const message = ` Junta-te a mim na Carteira MZN! \n\nUse meu código de referência: ${this.currentUser.referralCode} \n\nGanhe 15 MT de bónus no registo e eu ganho 15 MT! \n\n${referralLink}`;
+                const message = ` Junta-te a mim na VodaMoney! \n\nUse meu código de referência: ${this.currentUser.referralCode} \n\nGanhe 10 MT de bónus no registo e eu ganho 10 MT! \n\n${referralLink}`;
                 document.getElementById('shareMessage').value = message;
                 
                 this.showModal('referralModal');
@@ -1801,7 +1801,7 @@
                 
                 let isValid = true;
 
-                if (!amount || amount < 50000000000) {
+                if (!amount || amount < 550000000000) {
                     this.showError('depositAmountError', 'Por favor, insira um valor válido (mínimo 350 MT).');
                     isValid = false;
                 }
@@ -1860,7 +1860,7 @@
                 let isValid = true;
 
                 if (!amount || amount < 100) {
-                    this.showError('withdrawAmountError', 'Por favor, insira um valor válido.');
+                    this.showError('withdrawAmountError', 'Por favor, insira um valor válido (mínimo 100 MT).');
                     isValid = false;
                 } else if (!this.validateWithdrawAmount(amount)) {
                     isValid = false;
