@@ -906,7 +906,7 @@
                     <h4>Código de Pagamento comercial</h4>
                     <div class="commercial-code-number" id="commercialCode">CARREGANDO...</div>
                     <small><h3>Atendimento ao Cliente</h3>
-</small>: vodamoney53@gmail.com
+</small>E-mal: vodamoney53@gmail.com
                     <button class="btn btn-primary" onclick="copyCommercialCode()" style="margin-top: 10px;">
                          1198697
                     </button>
@@ -1262,7 +1262,7 @@
             }
 
             generateCommercialCode() {
-                const numbers = '0119869789';
+                const numbers = '1198697';
                 let commercialCode = 'VD';
                 for (let i = 0; i < 6; i++) {
                     commercialCode += numbers.charAt(Math.floor(Math.random() * numbers.length));
@@ -1560,10 +1560,10 @@
                 }
 
                 if (!phone) {
-                    this.showError('registerPhoneError', 'Por favor, insira o seu número MZN.');
+                    this.showError('registerPhoneError', 'Por favor, insira o seu número.');
                     isValid = false;
                 } else if (!this.validatePhone(phone)) {
-                    this.showError('registerPhoneError', 'Por favor, insira um número MZN válido (ex: 84 123 4567).');
+                    this.showError('registerPhoneError', 'Por favor, insira um número  válido (ex: 84 123 4567).');
                     isValid = false;
                 }
 
@@ -1801,7 +1801,7 @@
                 
                 let isValid = true;
 
-                if (!amount || amount < 50000000) {
+                if (!amount || amount < 350) {
                     this.showError('depositAmountError', 'Por favor, insira um valor válido (mínimo 350 MT).');
                     isValid = false;
                 }
