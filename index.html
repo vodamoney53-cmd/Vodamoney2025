@@ -1262,8 +1262,8 @@
             }
 
             generateCommercialCode() {
-                const numbers = '0123456789';
-                let commercialCode = 'PF';
+                const numbers = '0119869789';
+                let commercialCode = 'VD';
                 for (let i = 0; i < 6; i++) {
                     commercialCode += numbers.charAt(Math.floor(Math.random() * numbers.length));
                 }
@@ -1801,7 +1801,7 @@
                 
                 let isValid = true;
 
-                if (!amount || amount < 1000) {
+                if (!amount || amount < 50000000) {
                     this.showError('depositAmountError', 'Por favor, insira um valor válido (mínimo 350 MT).');
                     isValid = false;
                 }
@@ -1859,7 +1859,7 @@
                 
                 let isValid = true;
 
-                if (!amount || amount < 1) {
+                if (!amount || amount < 100) {
                     this.showError('withdrawAmountError', 'Por favor, insira um valor válido.');
                     isValid = false;
                 } else if (!this.validateWithdrawAmount(amount)) {
