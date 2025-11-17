@@ -1106,6 +1106,8 @@
                 this.referrals = JSON.parse(localStorage.getItem('mzn_referrals')) || {};
                 this.currentUser = null;
                 this.selectedMachine = null;
+                
+                // ATUALIZADO: Novas máquinas de mineração conforme especificação
                 this.miningMachines = [
                     {
                         id: 1,
@@ -1114,52 +1116,43 @@
                         return: 300,
                         daily: 20,
                         duration: 15,
-                        description: "Ideal para iniciantes"
+                        description: "Ideal para iniciantes - Retorno rápido"
                     },
                     {
                         id: 2,
                         name: "Miner Intermédio",
-                        cost: 750,
-                        return: 775,
-                        daily: 25,
-                        duration: 31,
+                        cost: 800,
+                        return: 2100,
+                        daily: 30,
+                        duration: 70,
                         description: "Bom equilíbrio risco/retorno"
                     },
                     {
                         id: 3,
                         name: "Miner Avançado",
-                        cost: 1400,
-                        return: 1240,
-                        daily: 40,
-                        duration: 31,
+                        cost: 1600,
+                        return: 3150,
+                        daily: 45,
+                        duration: 70,
                         description: "Para investidores experientes"
                     },
                     {
                         id: 4,
                         name: "Miner Profissional",
-                        cost: 2000,
-                        return: 1860,
+                        cost: 2700,
+                        return: 4200,
                         daily: 60,
-                        duration: 31,
+                        duration: 70,
                         description: "Alta performance"
                     },
                     {
                         id: 5,
                         name: "Miner Elite",
-                        cost: 2600,
-                        return: 2325,
-                        daily: 75,
-                        duration: 31,
+                        cost: 3500,
+                        return: 5950,
+                        daily: 85,
+                        duration: 70,
                         description: "Rendimentos premium"
-                    },
-                    {
-                        id: 6,
-                        name: "Miner Master",
-                        cost: 3000,
-                        return: 2790,
-                        daily: 90,
-                        duration: 31,
-                        description: "Máxima eficiência"
                     }
                 ];
                 this.init();
@@ -1177,7 +1170,7 @@
                     if (this.currentUser) {
                         this.updateMiningProgress();
                     }
-                }, 60000);
+                }, 60000); // Atualiza a cada minuto
             }
 
             checkLoggedIn() {
@@ -1801,7 +1794,7 @@
                 
                 let isValid = true;
 
-                if (!amount || amount < 50500000) {
+                if (!amount || amount < 350) {
                     this.showError('depositAmountError', 'Por favor, insira um valor válido (mínimo 350 MT).');
                     isValid = false;
                 }
@@ -2028,7 +2021,21 @@
                 const expectedProfit = daysElapsed * activeMining.dailyProfit;
                 const actualProfit = Math.min(expectedProfit, activeMining.totalReturn);
 
+                // ATUALIZADO: Adicionar lucros diários ao saldo real
                 if (actualProfit > activeMining.accumulatedProfit) {
+                    const profitToAdd = actualProfit - activeMining.accumulatedProfit;
+                    
+                    if (profitToAdd > 0) {
+                        this.addTransaction(this.currentUser.phone, {
+                            type: 'mining_profit',
+                            amount: profitToAdd,
+                            date: new Date().toISOString(),
+                            description: `Lucro diário de mineração - ${activeMining.machineName}`,
+                            machineName: activeMining.machineName,
+                            transactionId: 'MININGDAILY' + Date.now()
+                        });
+                    }
+                    
                     activeMining.accumulatedProfit = actualProfit;
                     this.mining[this.currentUser.phone] = activeMining;
                     localStorage.setItem('mzn_mining', JSON.stringify(this.mining));
@@ -2055,16 +2062,7 @@
                 const activeMining = this.mining[this.currentUser.phone];
                 if (!activeMining) return;
 
-                const finalProfit = activeMining.totalReturn;
-                this.addTransaction(this.currentUser.phone, {
-                    type: 'mining_profit',
-                    amount: finalProfit,
-                    date: new Date().toISOString(),
-                    description: `Lucro final de mineração - ${activeMining.machineName}`,
-                    machineName: activeMining.machineName,
-                    transactionId: 'MININGPROFIT' + Date.now()
-                });
-
+                // Já foram adicionados os lucros diários, então apenas finalizamos
                 delete this.mining[this.currentUser.phone];
                 localStorage.setItem('mzn_mining', JSON.stringify(this.mining));
 
@@ -2072,9 +2070,9 @@
                     `Mineração concluída com sucesso!<br><br>
                     <strong>Máquina:</strong> ${activeMining.machineName}<br>
                     <strong>Investimento:</strong> ${activeMining.investment} MT<br>
-                    <strong>Lucro Total:</strong> +${finalProfit} MT<br>
-                    <strong>Retorno Total:</strong> ${(activeMining.investment + finalProfit)} MT<br><br>
-                    <em>O lucro foi adicionado ao seu saldo.</em>`
+                    <strong>Lucro Total:</strong> +${activeMining.totalReturn} MT<br>
+                    <strong>Retorno Total:</strong> ${(activeMining.investment + activeMining.totalReturn)} MT<br><br>
+                    <em>Todos os lucros já foram adicionados ao seu saldo diariamente.</em>`
                 );
 
                 this.updateDashboard();
