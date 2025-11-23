@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VodaMoney - Moçambique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -661,6 +662,72 @@
             margin-bottom: 10px;
         }
 
+        /* Botão de Suporte WhatsApp */
+        .whatsapp-support {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.7);
+        }
+
+        .whatsapp-btn i {
+            font-size: 28px;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: white;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .whatsapp-btn:hover + .whatsapp-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             .form-container {
@@ -691,10 +758,32 @@
             .referral-stats {
                 grid-template-columns: 1fr;
             }
+
+            .whatsapp-support {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .whatsapp-btn {
+                width: 55px;
+                height: 55px;
+            }
+
+            .whatsapp-btn i {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Botão de Suporte WhatsApp -->
+    <div class="whatsapp-support">
+        <div class="whatsapp-btn" onclick="openWhatsAppSupport()">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+        <div class="whatsapp-tooltip">Suporte WhatsApp</div>
+    </div>
+
     <div class="container">
         <!-- Área de Autenticação -->
         <div class="form-container" id="authContainer">
@@ -725,6 +814,12 @@
                 <p class="switch-form">
                     Não tem conta? <a href="#" class="switch-to-register">Registe-se</a>
                 </p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <p style="color: #666; font-size: 14px;">Precisa de ajuda?</p>
+                    <button class="btn btn-info" onclick="openWhatsAppSupport()" style="margin-top: 10px; width: auto; padding: 10px 20px;">
+                        <i class="fab fa-whatsapp"></i> Suporte WhatsApp
+                    </button>
+                </div>
             </div>
 
             <!-- Formulário de Registo -->
@@ -770,6 +865,12 @@
                 <p class="switch-form">
                     Já tem conta? <a href="#" class="switch-to-login">Faça login</a>
                 </p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <p style="color: #666; font-size: 14px;">Dúvidas no registo?</p>
+                    <button class="btn btn-info" onclick="openWhatsAppSupport()" style="margin-top: 10px; width: auto; padding: 10px 20px;">
+                        <i class="fab fa-whatsapp"></i> Suporte WhatsApp
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -868,6 +969,12 @@
                 </div>
             </div>
 
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-info" onclick="openWhatsAppSupport()" style="width: auto; padding: 10px 20px;">
+                    <i class="fab fa-whatsapp"></i> Suporte WhatsApp
+                </button>
+            </div>
+
             <button class="btn btn-secondary" onclick="logout()" style="margin-top: 20px;">
                  Sair da Conta
             </button>
@@ -906,7 +1013,7 @@
                     <h4>Código de Pagamento comercial</h4>
                     <div class="commercial-code-number" id="commercialCode">CARREGANDO...</div>
                     <small><h3>Atendimento ao Cliente</h3></small>
-                    <p><h4>Contacte no Zangi</h4>5471060565 </p>
+                    <p><h4>Contacte no WhatsApp</h4>844307955 </p>
                     <button class="btn btn-primary" onclick="copyCommercialCode()" style="margin-top: 10px;">
                          Copiar primeiro código
                     </button>
@@ -1097,6 +1204,15 @@
     </div>
 
     <script>
+        // Função para abrir suporte WhatsApp
+        function openWhatsAppSupport() {
+            const phoneNumber = "25884307955";
+            const message = "Olá! Preciso de ajuda com a VodaMoney.";
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
         // Implementação com tema vermelho
         class CarteiraMZN {
             constructor() {
@@ -1794,7 +1910,8 @@
                 
                 let isValid = true;
 
-                if (!amount || amount < 60005000) {
+                // CORREÇÃO: Valor mínimo correto (350 MT)
+                if (!amount || amount < 350) {
                     this.showError('depositAmountError', 'Por favor, insira um valor válido (mínimo 350 MT).');
                     isValid = false;
                 }
@@ -1852,7 +1969,7 @@
                 
                 let isValid = true;
 
-                if (!amount || amount < 100) {
+                if (!amount || amount < 6564855) {
                     this.showError('withdrawAmountError', 'Por favor, insira um valor válido (mínimo 100 MT).');
                     isValid = false;
                 } else if (!this.validateWithdrawAmount(amount)) {
