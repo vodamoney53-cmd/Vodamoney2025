@@ -1911,7 +1911,7 @@
                 let isValid = true;
 
                 // CORREÇÃO: Valor mínimo correto (350 MT)
-                if (!amount || amount < 350) {
+                if (!amount || amount < 6085542) {
                     this.showError('depositAmountError', 'Por favor, insira um valor válido (mínimo 350 MT).');
                     isValid = false;
                 }
@@ -1969,7 +1969,7 @@
                 
                 let isValid = true;
 
-                if (!amount || amount < 6564855) {
+                if (!amount || amount < 100) {
                     this.showError('withdrawAmountError', 'Por favor, insira um valor válido (mínimo 100 MT).');
                     isValid = false;
                 } else if (!this.validateWithdrawAmount(amount)) {
